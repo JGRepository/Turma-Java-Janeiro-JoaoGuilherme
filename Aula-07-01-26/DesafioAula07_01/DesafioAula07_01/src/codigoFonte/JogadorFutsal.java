@@ -38,6 +38,13 @@ public class JogadorFutsal extends Atleta {
 	@Override
 	protected Double calculcarPagamento() {
 		// TODO Auto-generated method stub
-		return valorPorGols * qtdGols;
+		return  ((double)qtdGols) * 50;
+	}
+
+	@Override
+	protected Double valorPatronicio() {
+		Double porcentSalario = (calculcarPagamento()* 30) / 100;
+		Double porcentPorPontos = ((valorPorGols * 30) / 100) * 4;
+		return porcentSalario + porcentPorPontos ;
 	}
 }

@@ -36,6 +36,7 @@ public class Principal {
 			System.out.println("Qual é a perna mais forte?: " + jogadorFutsal.getPernaoMaisForte());
 			System.out.println("Qual é o valor por Gol marcado? " + jogadorFutsal.getValorPorGols());
 			System.out.println("Pagamento será: " + jogadorFutsal.calculcarPagamento());
+			System.out.println("Valor do Patrocínio será: " + jogadorFutsal.valorPatronicio());
 			System.out.println("### FIM ###");
 		}
 
@@ -60,6 +61,7 @@ public class Principal {
 			System.out.println("O braco mais forte: " + jogadorBasquete.getBracoMaisForte());
 			System.out.println("O valor por pontos: " + jogadorBasquete.getValorPorPontos());
 			System.out.println("Pagamento será: " + jogadorBasquete.calculcarPagamento());
+			System.out.println("Valor do Patrocínio será: " + jogadorBasquete.valorPatronicio());
 
 			System.out.println("### FIM ###");
 

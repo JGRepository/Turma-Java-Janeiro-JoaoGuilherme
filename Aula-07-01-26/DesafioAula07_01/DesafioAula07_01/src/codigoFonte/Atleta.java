@@ -5,7 +5,9 @@ public abstract class Atleta {
 	private String nomeAtleta;
 	private int idade;
 
+	
 	protected abstract Double calculcarPagamento();
+	protected abstract Double valorPatronicio();
 
 	public String getNomeAtleta() {
 		return nomeAtleta;

@@ -38,6 +38,13 @@ public class JogadorBasquete extends Atleta {
 	@Override
 	protected Double calculcarPagamento() {
 		
-		return valorPorPontos + qtdPontos;
+		return  ((double)qtdPontos) * 30;
+	}
+
+	@Override
+	protected Double valorPatronicio() {
+		Double porcentSalario = (calculcarPagamento()* 20) / 100;
+		Double porcentPorPontos = ((valorPorPontos * 20) / 100) * 3;
+		return porcentSalario + porcentPorPontos ;
 	}
 }
