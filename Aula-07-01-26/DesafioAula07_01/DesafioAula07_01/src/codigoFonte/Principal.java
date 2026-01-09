@@ -28,11 +28,14 @@ public class Principal {
 			System.out.println("Qual é o valor por Gol marcado?");
 			jogadorFutsal.setValorPorGols(entradaDados.nextDouble());
 
-//			System.out.println("Nome Cadastrado: " + jogadorFutsal.nomeAtleta);
-//			System.out.println("Idade Cadastrada: " + jogadorFutsal.idade);
-//			System.out.println("Qual é a perna mais forte?: " + jogadorFutsal.pernaMaisForte);
-//			System.out.println("Qual é o valor por Gol marcado? " + jogadorFutsal.valorPorGols);
+			System.out.println("Qual a quantidade de Gol(s) marcado(s)?");
+			jogadorFutsal.setQtdGols(entradaDados.nextInt());
 
+			System.out.println("Nome Cadastrado: " + jogadorFutsal.getNomeAtleta());
+			System.out.println("Idade Cadastrada: " + jogadorFutsal.getIdade());
+			System.out.println("Qual é a perna mais forte?: " + jogadorFutsal.getPernaoMaisForte());
+			System.out.println("Qual é o valor por Gol marcado? " + jogadorFutsal.getValorPorGols());
+			System.out.println("Pagamento será: " + jogadorFutsal.calculcarPagamento());
 			System.out.println("### FIM ###");
 		}
 
@@ -49,10 +52,14 @@ public class Principal {
 			System.out.println("Digite o valor por ponto do Jogador De Basquete: ");
 			jogadorBasquete.setValorPorPontos(entradaDados.nextDouble());
 
-//			System.out.println("O nome do jogador de Basquete: " + jogadorBasquete.nomeAtleta );
-//			System.out.println("A idade do jogador de Basquete: " + jogadorBasquete.idade );
-//			System.out.println("O braco mais forte: " + jogadorBasquete.bracoMaisForte);
-//			System.out.println("O valor por pontos: " + jogadorBasquete.valorPorPontos);
+			System.out.println("Qual a quantidade de Ponto(s) marcado(s)?");
+			jogadorBasquete.setQtdPontos(entradaDados.nextInt());
+
+			System.out.println("O nome do jogador de Basquete: " + jogadorBasquete.getNomeAtleta());
+			System.out.println("A idade do jogador de Basquete: " + jogadorBasquete.getIdade());
+			System.out.println("O braco mais forte: " + jogadorBasquete.getBracoMaisForte());
+			System.out.println("O valor por pontos: " + jogadorBasquete.getValorPorPontos());
+			System.out.println("Pagamento será: " + jogadorBasquete.calculcarPagamento());
 
 			System.out.println("### FIM ###");
 

@@ -2,9 +2,19 @@ package codigoFonte;
 
 public class JogadorFutsal extends Atleta {
 
-	String pernaMaisForte;
-	Double valorPorGols;
+	private String pernaMaisForte;
+	private Double valorPorGols;
+	private int qtdGols;
 	
+	public int getQtdGols() {
+		return qtdGols;
+	}
+
+	public void setQtdGols(int qtdGols) {
+		verificarValorNegativo((double)qtdGols);
+		this.qtdGols = qtdGols;
+	}
+
 	public String getPernaoMaisForte() {
 		return pernaMaisForte;
 	}
@@ -19,10 +29,15 @@ public class JogadorFutsal extends Atleta {
 	}
 	
 	public void setValorPorGols(Double valorPorGolsChegando) {
-		Utilitario util = new Utilitario();
-		util.verificarValorNegativo(valorPorGolsChegando);
+		verificarValorNegativo(valorPorGolsChegando);
 		this.valorPorGols = valorPorGolsChegando;
 		
 		
+	}
+
+	@Override
+	protected Double calculcarPagamento() {
+		// TODO Auto-generated method stub
+		return valorPorGols * qtdGols;
 	}
 }
