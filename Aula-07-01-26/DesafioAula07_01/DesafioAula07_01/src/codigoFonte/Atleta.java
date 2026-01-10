@@ -4,10 +4,27 @@ public abstract class Atleta {
 
 	private String nomeAtleta;
 	private int idade;
+	private Double salario;
+	private Double patrocinio;
 
-	
 	protected abstract Double calculcarPagamento();
 	protected abstract Double valorPatronicio();
+
+	public Double getPatrocinio() {
+		return patrocinio;
+	}
+
+	public void setPatrocinio(Double patrocinio) {
+		this.patrocinio = patrocinio;
+	}
+
+	public Double getSalario() {
+		return salario;
+	}
+
+	public void setSalario(Double salario) {
+		this.salario = salario;
+	}
 
 	public String getNomeAtleta() {
 		return nomeAtleta;

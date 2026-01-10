@@ -43,8 +43,8 @@ public class JogadorFutsal extends Atleta {
 
 	@Override
 	protected Double valorPatronicio() {
-		Double porcentSalario = (calculcarPagamento()* 30) / 100;
-		Double porcentPorPontos = ((valorPorGols * 30) / 100) * 4;
-		return porcentSalario + porcentPorPontos ;
+		Double valorPorcentSalario = (getPatrocinio()* 0.3);
+		Double valorPorcentPorPontos = ((valorPorGols * 0.3) * 4);
+		return valorPorcentSalario + valorPorcentPorPontos ;
 	}
 }
