@@ -24,14 +24,14 @@ public class Principal {
                         "Digite [F] para Jogador de Futsal ou [B] para Jogador de Basquete");
 
                 if (opcaoCadastro == null) {
-                    JOptionPane.showMessageDialog(null, "Operação cancelada.");
+                    JOptionPane.showMessageDialog(null, "Por favor, selecione alguma opção.");
                     return;
                 }
 
                 opcaoCadastro = opcaoCadastro.trim();
 
                 if (!opcaoCadastro.equalsIgnoreCase("F") && !opcaoCadastro.equalsIgnoreCase("B")) {
-                    JOptionPane.showMessageDialog(null, "Opção inválida. Digite apenas F ou B.");
+                    JOptionPane.showMessageDialog(null, "Opção inválida. Digite apenas 'F' ou 'B'.");
                 }
 
             } while (!opcaoCadastro.equalsIgnoreCase("F") && !opcaoCadastro.equalsIgnoreCase("B"));
@@ -121,10 +121,18 @@ public class Principal {
                 jogadoresBasquete.add(jogadorBasquete);
             }
 
-            cadastrarNovamente = JOptionPane.showInputDialog("Deseja cadastrar mais um Atleta? Digite [S]/[N]");
+            do {cadastrarNovamente = JOptionPane.showInputDialog("Deseja cadastrar mais um Atleta? Digite [S]/[N]");
             if (cadastrarNovamente == null) {
-                cadastrarNovamente = "N";
+                JOptionPane.showMessageDialog(null, "Por favor, selecione alguma opção.");
+                return;
             }
+
+            cadastrarNovamente = cadastrarNovamente.trim();
+            if (!cadastrarNovamente.equalsIgnoreCase("S") && !cadastrarNovamente.equalsIgnoreCase("N")) {
+                JOptionPane.showMessageDialog(null, "Opção inválida. Digite apenas 'S' ou 'N'.");
+            }
+            }
+            while(!cadastrarNovamente.equalsIgnoreCase("S") && !cadastrarNovamente.equalsIgnoreCase("N"));
 
         } while (cadastrarNovamente.equalsIgnoreCase("S"));
 
@@ -159,7 +167,7 @@ public class Principal {
     }
 
     public static int validaInteiro(String numeroString) {
-        if (numeroString == null || numeroString.isBlank()) {
+        if (numeroString == null || numeroString.isBlank() ||(Integer.parseInt(numeroString) == 0 )) {
             JOptionPane.showMessageDialog(null, "***Valor inválido!***");
             return 0;
         }
@@ -174,7 +182,7 @@ public class Principal {
     }
 
     public static double validaDouble(String numeroString) {
-        if (numeroString == null || numeroString.isBlank()) {
+        if (numeroString == null || numeroString.isBlank() || (Integer.parseInt(numeroString) == 0)) {
             JOptionPane.showMessageDialog(null, "***Valor inválido!***");
             return 0.0;
         }
@@ -188,4 +196,5 @@ public class Principal {
             return 0.0;
         }
     }
+
 }
