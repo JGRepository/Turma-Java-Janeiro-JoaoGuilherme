@@ -2,168 +2,190 @@ package codigoFonte;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
 public class Principal {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		Scanner entradaDados = new Scanner(System.in);
+        List<JogadorFutsal> jogadoresFutsal = new ArrayList<>();
+        List<JogadorBasquete> jogadoresBasquete = new ArrayList<>();
 
-		List<JogadorFutsal> jogadoresFutsal = new ArrayList<JogadorFutsal>();
-		List<JogadorBasquete> jogadoresBasquete = new ArrayList<JogadorBasquete>();
-		String cadastrarNovamente;
+        JOptionPane.showMessageDialog(null, "Sistema de cadastro de Atleta");
 
-		JOptionPane.showMessageDialog(null, "Sistema de cadastro de Atleta");
+        String cadastrarNovamente;
 
-		do {
-			String opcaoCadastro = JOptionPane
-					.showInputDialog("Digite [F] para Jogador de Futsal ou [B] para Jogador de Basquete");
-			if (opcaoCadastro.equalsIgnoreCase("F")) {
-				JogadorFutsal jogadorFutsal = new JogadorFutsal();
+        do {
 
-				jogadorFutsal.setNomeAtleta(JOptionPane.showInputDialog("Qual o nome do Jogador de Futsal"));
+            String opcaoCadastro;
+            do {
+                opcaoCadastro = JOptionPane.showInputDialog(
+                        "Digite [F] para Jogador de Futsal ou [B] para Jogador de Basquete");
 
-				int idadeTemporaria;
-				do {
-					idadeTemporaria = validaInteiro(JOptionPane.showInputDialog("Qual a idade do Jogador de Futsal"));
-					if (idadeTemporaria != 0) {
-						jogadorFutsal.setIdade(idadeTemporaria);
-					}
-				} while (idadeTemporaria == 0);
+                if (opcaoCadastro == null) {
+                    JOptionPane.showMessageDialog(null, "Operação cancelada.");
+                    return;
+                }
 
-				jogadorFutsal.setPernaMaisForte(JOptionPane.showInputDialog("Qual é a perna mais forte?"));
+                opcaoCadastro = opcaoCadastro.trim();
 
-				double valorPorGolTempDouble;
-				do {
-					valorPorGolTempDouble = validaDouble(
-							JOptionPane.showInputDialog("Qual é o valor por Gol marcado?"));
-					if (valorPorGolTempDouble != 0.0) {
-						jogadorFutsal.setValorPorGols(valorPorGolTempDouble);
-					}
-				} while (valorPorGolTempDouble == 0.0);
+                if (!opcaoCadastro.equalsIgnoreCase("F") && !opcaoCadastro.equalsIgnoreCase("B")) {
+                    JOptionPane.showMessageDialog(null, "Opção inválida. Digite apenas F ou B.");
+                }
 
-				int qntGolTemp;
-				do {
-					qntGolTemp = validaInteiro(JOptionPane.showInputDialog("Qual a quantidade de Gol(s) marcado(s)?"));
-					if (qntGolTemp != 0) {
-						jogadorFutsal.setQtdGols(qntGolTemp);
-					}
-				} while (qntGolTemp == 0);
+            } while (!opcaoCadastro.equalsIgnoreCase("F") && !opcaoCadastro.equalsIgnoreCase("B"));
 
-				jogadorFutsal.setSalario(jogadorFutsal.calculcarPagamento());
-				jogadorFutsal.setPatrocinio(jogadorFutsal.valorPatronicio());
+            if (opcaoCadastro.equalsIgnoreCase("F")) {
 
-				jogadoresFutsal.add(jogadorFutsal);
+                JogadorFutsal jogadorFutsal = new JogadorFutsal();
 
-			}
+                String nome = JOptionPane.showInputDialog("Qual o nome do Jogador de Futsal");
+                if (nome == null) {
+                    JOptionPane.showMessageDialog(null, "Operação cancelada.");
+                    return;
+                }
+                jogadorFutsal.setNomeAtleta(nome);
 
-			if (opcaoCadastro.equalsIgnoreCase("B")) {
-				JogadorBasquete jogadorBasquete = new JogadorBasquete();
+                int idade;
+                do {
+                    idade = validaInteiro(JOptionPane.showInputDialog("Qual a idade do Jogador de Futsal"));
+                } while (idade == 0);
+                jogadorFutsal.setIdade(idade);
 
-				jogadorBasquete.setNomeAtleta(JOptionPane.showInputDialog("Qual o nome do Jogador de Basquete"));
+                String perna = JOptionPane.showInputDialog("Qual é a perna mais forte?");
+                if (perna == null) {
+                    JOptionPane.showMessageDialog(null, "Operação cancelada.");
+                    return;
+                }
+                jogadorFutsal.setPernaMaisForte(perna);
 
-				int idadeTemporaria;
-				do {
-					idadeTemporaria = validaInteiro(JOptionPane.showInputDialog("Qual a idade do Jogador de Basquete"));
-					if (idadeTemporaria != 0) {
-						jogadorBasquete.setIdade(idadeTemporaria);
-					}
-				} while (idadeTemporaria == 0);
-			
+                double valorPorGol;
+                do {
+                    valorPorGol = validaDouble(JOptionPane.showInputDialog("Qual é o valor por Gol marcado?"));
+                } while (valorPorGol == 0.0);
+                jogadorFutsal.setValorPorGols(valorPorGol);
 
-				jogadorBasquete.setBracoMaisForte(
-						JOptionPane.showInputDialog("Digite o Braco mais forte do Jogador De Basquete: "));
-				
-				double valorPorGolTempDouble;
-				do {
-					valorPorGolTempDouble = validaDouble(
-							JOptionPane.showInputDialog("Digite o valor por ponto do Jogador De Basquete: ?"));
-					if (valorPorGolTempDouble != 0.0) {
-						jogadorBasquete.setValorPorPontos(valorPorGolTempDouble);
-					}
-				} while (valorPorGolTempDouble == 0.0);
+                int qtdGols;
+                do {
+                    qtdGols = validaInteiro(JOptionPane.showInputDialog("Qual a quantidade de Gol(s) marcado(s)?"));
+                } while (qtdGols == 0);
+                jogadorFutsal.setQtdGols(qtdGols);
 
+                jogadorFutsal.setSalario(jogadorFutsal.calculcarPagamento());
+                jogadorFutsal.setPatrocinio(jogadorFutsal.valorPatronicio());
 
-				int qntPontosTempBasquete;
-				do {
-					qntPontosTempBasquete = validaInteiro(JOptionPane.showInputDialog("Qual a quantidade de Ponto(s) marcado(s)?"));
-					if (qntPontosTempBasquete != 0) {
-						jogadorBasquete.setQtdPontos(qntPontosTempBasquete);
-					}
-				} while (qntPontosTempBasquete == 0);
+                jogadoresFutsal.add(jogadorFutsal);
+            }
 
-				
-			
+            if (opcaoCadastro.equalsIgnoreCase("B")) {
 
-				jogadorBasquete.setSalario(jogadorBasquete.calculcarPagamento());
-				jogadorBasquete.setPatrocinio(jogadorBasquete.valorPatronicio());
+                JogadorBasquete jogadorBasquete = new JogadorBasquete();
 
-				jogadoresBasquete.add(jogadorBasquete);
-			}
-			cadastrarNovamente = JOptionPane.showInputDialog("Deseja cadastrar mais um Atleta? Digite [S]/[N]");
+                String nome = JOptionPane.showInputDialog("Qual o nome do Jogador de Basquete");
+                if (nome == null) {
+                    JOptionPane.showMessageDialog(null, "Operação cancelada.");
+                    return;
+                }
+                jogadorBasquete.setNomeAtleta(nome);
 
-		} while (cadastrarNovamente.equalsIgnoreCase("S"));
+                int idade;
+                do {
+                    idade = validaInteiro(JOptionPane.showInputDialog("Qual a idade do Jogador de Basquete"));
+                } while (idade == 0);
+                jogadorBasquete.setIdade(idade);
 
-		for (JogadorFutsal jogadorFutsalLista : jogadoresFutsal) {
-			System.out.println("################Lista de Jogadores de futebol Cadastrados################");
-			System.out.println("O nome do jogador de Basquete: " + jogadorFutsalLista.getNomeAtleta());
-			System.out.println("Idade Cadastrada: " + jogadorFutsalLista.getIdade());
-			System.out.println("Qual é a perna mais forte?: " + jogadorFutsalLista.getPernaoMaisForte());
-			System.out.println("Qual é o valor por Gol marcado? " + jogadorFutsalLista.getValorPorGols());
-			System.out.println("Valor Salario: " + jogadorFutsalLista.getSalario());
-			System.out.println("O valor do patrocinio é: " + jogadorFutsalLista.getPatrocinio());
-			System.out.println("----------------------------------------------------------------");
-		}
+                String braco = JOptionPane.showInputDialog("Digite o Braço mais forte do Jogador de Basquete:");
+                if (braco == null) {
+                    JOptionPane.showMessageDialog(null, "Operação cancelada.");
+                    return;
+                }
+                jogadorBasquete.setBracoMaisForte(braco);
 
-		for (JogadorBasquete jogadorBasqueteLista : jogadoresBasquete) {
-			System.out.println("############Lista de Jogadores de Volei Cadastrados##############");
-			System.out.println("Nome do Jogador de Volei: " + jogadorBasqueteLista.getNomeAtleta());
-			System.out.println("Idade do Jogador de Volei: " + jogadorBasqueteLista.getIdade());
-			System.out.println("Braço Mais forte do Jogador de Volei: " + jogadorBasqueteLista.getBracoMaisForte());
-			System.out.println("Valor recebido por pontos: " + jogadorBasqueteLista.getValorPorPontos());
-			System.out.println("Quantidade de pontos: " + jogadorBasqueteLista.getQtdPontos());
-			System.out.println("Valor Salario: " + jogadorBasqueteLista.getSalario());
-			System.out.println("O valor do patrocinio é: " + jogadorBasqueteLista.getPatrocinio());
+                double valorPorPonto;
+                do {
+                    valorPorPonto = validaDouble(
+                            JOptionPane.showInputDialog("Digite o valor por ponto do Jogador de Basquete:"));
+                } while (valorPorPonto == 0.0);
+                jogadorBasquete.setValorPorPontos(valorPorPonto);
 
-			System.out.println("----------------------------------------------------------------");
+                int qtdPontos;
+                do {
+                    qtdPontos = validaInteiro(JOptionPane.showInputDialog("Qual a quantidade de Ponto(s) marcado(s)?"));
+                } while (qtdPontos == 0);
+                jogadorBasquete.setQtdPontos(qtdPontos);
 
-		}
-		System.out.println("### FIM ###");
-	}
+                jogadorBasquete.setSalario(jogadorBasquete.calculcarPagamento());
+                jogadorBasquete.setPatrocinio(jogadorBasquete.valorPatronicio());
 
-	public static int validaInteiro(String numeroString) {
-		int numeroInteiro = 0;
-		if (numeroString == null || numeroString.isBlank()) {
-			JOptionPane.showConfirmDialog(null, "***Valor Inválido!!!!***");
-		} else {
-			try {
+                jogadoresBasquete.add(jogadorBasquete);
+            }
 
-				numeroInteiro = Integer.parseInt(numeroString);
-			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(null, "***Digite apenas Numeros!!!!***");
-				System.out.println("LOG: " + e.getMessage() + "Não pode ser convertdo");
-			}
-		}
-		return numeroInteiro;
-	}
+            cadastrarNovamente = JOptionPane.showInputDialog("Deseja cadastrar mais um Atleta? Digite [S]/[N]");
+            if (cadastrarNovamente == null) {
+                cadastrarNovamente = "N";
+            }
 
-	public static Double validaDouble(String numeroString) {
-		Double numeroDecimalDouble = 0.0;
-		if (numeroString == null || numeroString.isBlank()) {
-			JOptionPane.showConfirmDialog(null, "***Valor Inválido!!!!***");
-		} else {
-			try {
+        } while (cadastrarNovamente.equalsIgnoreCase("S"));
 
-				numeroDecimalDouble = Double.parseDouble(numeroString);
-			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(null, "***Digite apenas Numeros!!!!***");
-				System.out.println("LOG: " + e.getMessage() + " Não pode ser convertdo");
-			}
-		}
+        if (!jogadoresFutsal.isEmpty()) {
+            System.out.println("################ Lista de Jogadores de FUTSAL Cadastrados ################");
+            for (JogadorFutsal jogador : jogadoresFutsal) {
+                System.out.println("Nome: " + jogador.getNomeAtleta());
+                System.out.println("Idade: " + jogador.getIdade());
+                System.out.println("Perna mais forte: " + jogador.getPernaoMaisForte());
+                System.out.println("Valor por gol: " + jogador.getValorPorGols());
+                System.out.println("Salário: " + jogador.getSalario());
+                System.out.println("Patrocínio: " + jogador.getPatrocinio());
+                System.out.println("----------------------------------------------------------------");
+            }
+        }
 
-		return numeroDecimalDouble;
-	}
+        if (!jogadoresBasquete.isEmpty()) {
+            System.out.println("################ Lista de Jogadores de BASQUETE Cadastrados ################");
+            for (JogadorBasquete jogador : jogadoresBasquete) {
+                System.out.println("Nome: " + jogador.getNomeAtleta());
+                System.out.println("Idade: " + jogador.getIdade());
+                System.out.println("Braço mais forte: " + jogador.getBracoMaisForte());
+                System.out.println("Valor por ponto: " + jogador.getValorPorPontos());
+                System.out.println("Quantidade de pontos: " + jogador.getQtdPontos());
+                System.out.println("Salário: " + jogador.getSalario());
+                System.out.println("Patrocínio: " + jogador.getPatrocinio());
+                System.out.println("----------------------------------------------------------------");
+            }
+        }
+
+        System.out.println("### FIM ###");
+    }
+
+    public static int validaInteiro(String numeroString) {
+        if (numeroString == null || numeroString.isBlank()) {
+            JOptionPane.showMessageDialog(null, "***Valor inválido!***");
+            return 0;
+        }
+
+        try {
+            return Integer.parseInt(numeroString.trim());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "***Digite apenas números inteiros!***");
+            System.out.println("LOG: " + e.getMessage() + " (não pode ser convertido)");
+            return 0;
+        }
+    }
+
+    public static double validaDouble(String numeroString) {
+        if (numeroString == null || numeroString.isBlank()) {
+            JOptionPane.showMessageDialog(null, "***Valor inválido!***");
+            return 0.0;
+        }
+
+        try {
+            String normalizado = numeroString.trim().replace(",", ".");
+            return Double.parseDouble(normalizado);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "***Digite apenas números (ex: 10.5)!***");
+            System.out.println("LOG: " + e.getMessage() + " (não pode ser convertido)");
+            return 0.0;
+        }
+    }
 }
