@@ -31,15 +31,15 @@ public class Principal {
 				opcaoCadastro = opcaoCadastro.trim();
 
 				if (!opcaoCadastro.equalsIgnoreCase("F") && !opcaoCadastro.equalsIgnoreCase("B")
-						&& !somenteLetras(opcaoCadastro)) {
+						|| !somenteLetras(opcaoCadastro)) {
 					JOptionPane.showMessageDialog(null, "Opção inválida. Digite apenas 'F' ou 'B'.");
 				}
 
 			} while (!opcaoCadastro.equalsIgnoreCase("F") && !opcaoCadastro.equalsIgnoreCase("B"));
-			
-			//JOGADOR FUTSAL
-			//JOGADOR FUTSAL
-			//JOGADOR FUTSAL
+
+			// JOGADOR FUTSAL
+			// JOGADOR FUTSAL
+			// JOGADOR FUTSAL
 			if (opcaoCadastro.equalsIgnoreCase("F")) {
 
 				JogadorFutsal jogadorFutsal = new JogadorFutsal();
@@ -61,10 +61,9 @@ public class Principal {
 				String perna;
 				do {
 					perna = JOptionPane.showInputDialog("Qual é a perna mais forte?");
-					
+
 				} while (!somenteLetras(perna));
-			
-				
+
 				jogadorFutsal.setPernaMaisForte(perna);
 
 				double valorPorGol;
@@ -84,19 +83,19 @@ public class Principal {
 
 				jogadoresFutsal.add(jogadorFutsal);
 			}
-			//JOGADOR BASQUETE
-			//JOGADOR BASQUETE
-			//JOGADOR BASQUETE
+			// JOGADOR BASQUETE
+			// JOGADOR BASQUETE
+			// JOGADOR BASQUETE
 			if (opcaoCadastro.equalsIgnoreCase("B")) {
 
 				JogadorBasquete jogadorBasquete = new JogadorBasquete();
-				
+
 				String nome;
 				do {
 					nome = JOptionPane.showInputDialog("Qual o nome do Jogador de Basquete");
-					
+
 				} while (!somenteLetras(nome));
-				
+
 				jogadorBasquete.setNomeAtleta(nome);
 
 				int idade;
@@ -106,13 +105,12 @@ public class Principal {
 				jogadorBasquete.setIdade(idade);
 
 				String braco;
-				do{
-					
+				do {
+
 					braco = JOptionPane.showInputDialog("Digite o Braço mais forte do Jogador de Basquete:");
-					
-					
+
 				} while (!somenteLetras(braco));
-				
+
 				jogadorBasquete.setBracoMaisForte(braco);
 
 				double valorPorPonto;
@@ -141,14 +139,48 @@ public class Principal {
 				}
 
 				cadastrarNovamente = cadastrarNovamente.trim();
-				if (!cadastrarNovamente.equalsIgnoreCase("S") && !cadastrarNovamente.equalsIgnoreCase("N")) {
+				if (!cadastrarNovamente.equalsIgnoreCase("S") && !cadastrarNovamente.equalsIgnoreCase("N")
+						&& !somenteLetras(cadastrarNovamente)) {
 					JOptionPane.showMessageDialog(null, "Opção inválida. Digite apenas 'S' ou 'N'.");
 				}
-			} while (!cadastrarNovamente.equalsIgnoreCase("S") && !cadastrarNovamente.equalsIgnoreCase("N") && !somenteLetras(cadastrarNovamente));
+			} while (!cadastrarNovamente.equalsIgnoreCase("S") && !cadastrarNovamente.equalsIgnoreCase("N")
+					&& !somenteLetras(cadastrarNovamente));
 
 		} while (cadastrarNovamente.equalsIgnoreCase("S"));
+		StringBuilder mensagem = new StringBuilder();
 
-		if (!jogadoresFutsal.isEmpty()) {
+		mensagem.append("### LISTA JOGADORES DE FUTSAL CADASTRADOS ###").append("\n");
+
+		for (JogadorFutsal jogadoresFutsalLista : jogadoresFutsal) {
+			
+			mensagem.append("Nome do Jogador de Futebol: ")
+			.append(jogadoresFutsalLista.getNomeAtleta())
+			.append("\n");
+			
+			mensagem.append("Idade: ")
+			.append(jogadoresFutsalLista.getIdade())
+			.append("\n");
+			
+			mensagem.append("Perna mais forte: ")
+			.append(jogadoresFutsalLista.getPernaoMaisForte())
+			.append("\n");
+			
+			mensagem.append("Valor por gol: ")
+			.append(jogadoresFutsalLista.getValorPorGols())
+			.append("\n");
+			
+			mensagem.append("Salário: ")
+			.append(jogadoresFutsalLista.getSalario())
+			.append("\n");
+			
+			mensagem.append("Patrocínio: ")
+			.append(jogadoresFutsalLista.getPatrocinio())
+			.append("\n");
+			
+			mensagem.append("---------------------------------");
+		}
+
+	
 			System.out.println("################ Lista de Jogadores de FUTSAL Cadastrados ################");
 			for (JogadorFutsal jogador : jogadoresFutsal) {
 				System.out.println("Nome: " + jogador.getNomeAtleta());
@@ -159,9 +191,40 @@ public class Principal {
 				System.out.println("Patrocínio: " + jogador.getPatrocinio());
 				System.out.println("----------------------------------------------------------------");
 			}
-		}
+		
+		mensagem.append("### LISTA JOGADORES DE FUTSAL CADASTRADOS ###").append("\n");
 
-		if (!jogadoresBasquete.isEmpty()) {
+		for (JogadorBasquete jogadoresBasqueteLista : jogadoresBasquete) {
+			
+			mensagem.append("Nome do Jogador de Futebol: ")
+			.append(jogadoresBasqueteLista.getNomeAtleta())
+			.append("\n");
+			
+			mensagem.append("Idade: ")
+			.append(jogadoresBasqueteLista.getIdade())
+			.append("\n");
+			
+			mensagem.append("Braço mais forte: ")
+			.append(jogadoresBasqueteLista.getBracoMaisForte())
+			.append("\n");
+			
+			mensagem.append("Valor por pontos: ")
+			.append(jogadoresBasqueteLista.getValorPorPontos())
+			.append("\n");
+			
+			mensagem.append("Salário: ")
+			.append(jogadoresBasqueteLista.getSalario())
+			.append("\n");
+			
+			mensagem.append("Patrocínio: ")
+			.append(jogadoresBasqueteLista.getPatrocinio())
+			.append("\n");
+			
+			mensagem.append("---------------------------------");
+		}
+	JOptionPane.showMessageDialog(null, mensagem.toString());
+
+	
 			System.out.println("################ Lista de Jogadores de BASQUETE Cadastrados ################");
 			for (JogadorBasquete jogador : jogadoresBasquete) {
 				System.out.println("Nome: " + jogador.getNomeAtleta());
@@ -173,40 +236,44 @@ public class Principal {
 				System.out.println("Patrocínio: " + jogador.getPatrocinio());
 				System.out.println("----------------------------------------------------------------");
 			}
-		}
+		
 
 		System.out.println("### FIM ###");
 	}
 
 	public static int validaInteiro(String numeroString) {
+		int numeroInteiro = 0;
+
 		if (numeroString == null || numeroString.isBlank() || (Integer.parseInt(numeroString) == 0)) {
 			JOptionPane.showMessageDialog(null, "***Valor inválido!***");
-			return 0;
-		}
 
-		try {
-			return Integer.parseInt(numeroString.trim());
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "***Digite apenas números inteiros!***");
-			System.out.println("LOG: " + e.getMessage() + " (não pode ser convertido)");
-			return 0;
+		} else {
+
+			try {
+				numeroInteiro = Integer.parseInt(numeroString);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "***Digite apenas números inteiros!***");
+				System.out.println("LOG: " + e.getMessage() + " (não pode ser convertido)");
+			}
 		}
+		return numeroInteiro;
 	}
 
-	public static double validaDouble(String numeroString) {
+	public static Double validaDouble(String numeroString) {
+		Double numeroDecimalDouble = 0.0;
 		if (numeroString == null || numeroString.isBlank() || (Integer.parseInt(numeroString) == 0)) {
-			JOptionPane.showMessageDialog(null, "***Valor inválido!***");
-			return 0.0;
+			JOptionPane.showConfirmDialog(null, "***Valor Inválido!!!!***");
+		} else {
+			try {
+
+				numeroDecimalDouble = Double.parseDouble(numeroString);
+			} catch (Exception e) {
+				JOptionPane.showConfirmDialog(null, "***Digite apenas Numeros!!!!***");
+				System.out.println("LOG: " + e.getMessage() + " Não pode ser convertdo");
+			}
 		}
 
-		try {
-			String normalizado = numeroString.trim().replace(",", ".");
-			return Double.parseDouble(normalizado);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "***Digite apenas números (ex: 10.5)!***");
-			System.out.println("LOG: " + e.getMessage() + " (não pode ser convertido)");
-			return 0.0;
-		}
+		return numeroDecimalDouble;
 	}
 
 	public static boolean somenteLetras(String texto) {
