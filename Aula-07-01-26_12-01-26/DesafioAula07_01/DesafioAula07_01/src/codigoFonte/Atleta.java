@@ -6,9 +6,28 @@ public abstract class Atleta {
 	private int idade;
 	private Double salario;
 	private Double patrocinio;
+	private long identificador;
 
 	protected abstract Double calculcarPagamento();
 	protected abstract Double valorPatronicio();
+	
+	
+	public Atleta(long identificador) {
+		this.identificador = identificador;
+	}
+	
+	public long getIdentificador() {
+		return identificador;
+	}
+	
+//	public Atleta(String nomeAtletaConstrutor, int idadeAtletaConstrutor) {
+//		this.nomeAtleta = nomeAtletaConstrutor;
+//		this.idade = idadeAtletaConstrutor;
+//	}
+//	
+//	public Atleta() {
+//		
+//	}
 
 	public Double getPatrocinio() {
 		return patrocinio;
