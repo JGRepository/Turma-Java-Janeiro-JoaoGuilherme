@@ -11,4 +11,9 @@ public class SupervisorAuxiliar extends Pessoa {
 	public void seSsupervisorAuxiliar(String supervisorAuxiliar) {
 		this.supervisorAuxiliar = supervisorAuxiliar;
 	}
+
+	public String getText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

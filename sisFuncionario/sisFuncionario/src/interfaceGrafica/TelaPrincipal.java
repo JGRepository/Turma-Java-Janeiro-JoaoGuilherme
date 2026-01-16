@@ -6,16 +6,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controlador.ControladorPaginaPrincipal;
+
 public class TelaPrincipal {
 
 
 		
 		
 		public void menuPrincipal() {
-			System.out.println("Inicio do metodo menuPrincipal");
+			System.out.println("Inicio do metodo menu Principal");
 			
 			JFrame frameMenuPrincipal = new JFrame();
-			frameMenuPrincipal.setSize(1000,1000);
+			frameMenuPrincipal.setSize(300,300);
 			
 			JPanel panelMenuPrincipal = new JPanel();
 			
@@ -33,8 +35,11 @@ public class TelaPrincipal {
 			
 			
 			frameMenuPrincipal.add(panelMenuPrincipal);
+			frameMenuPrincipal.setLocationRelativeTo(null);
 			frameMenuPrincipal.setVisible(true); 
 			
+			ControladorPaginaPrincipal controladorPaginaPrincipal = new ControladorPaginaPrincipal(caixaTextoOpcao, frameMenuPrincipal);
+		    botaoEnviar.addActionListener(controladorPaginaPrincipal);
 	}
 }
 
