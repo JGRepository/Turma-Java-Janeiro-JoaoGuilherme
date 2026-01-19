@@ -23,7 +23,7 @@ public class ControladorPaginaPrincipal implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		switch (opcao.getText()) {
 		case "1": {
-			telaCadastroSupervisor.formularioSupervisor();
+			telaCadastroSupervisor.formularioSupervisor(frameTelaPrincipal);
 			frameTelaPrincipal.setVisible(false);
 			break;
 		}

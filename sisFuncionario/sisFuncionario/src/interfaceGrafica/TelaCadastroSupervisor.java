@@ -10,13 +10,13 @@ import controlador.ControladorTelaCadastroSupervisor;
 
 public class TelaCadastroSupervisor {
 
-	public void formularioSupervisor() {
+	public void formularioSupervisor(JFrame frameTelaPrincipal) {
 		String nome = "Digite o nome";
 		String cpf = "Digite o CPF";
 		String email = "Digite o Email";
 
-		JFrame frameCadastroSupervisorFrame = new JFrame();
-		frameCadastroSupervisorFrame.setSize(300, 300);
+		JFrame frameCadastroSupervisor = new JFrame();
+		frameCadastroSupervisor.setSize(250, 300);
 
 		JPanel panelSupervisor = new JPanel();
 
@@ -40,14 +40,18 @@ public class TelaCadastroSupervisor {
 
 		JButton botaoCadastrarSupervisor = new JButton("CADASTRAR");
 		panelSupervisor.add(botaoCadastrarSupervisor);
+		
+		JButton botaoVoltarMenu = new JButton("MENU PRINCIPAL");
+		panelSupervisor.add(botaoVoltarMenu);
 
-		frameCadastroSupervisorFrame.setVisible(true);
-		frameCadastroSupervisorFrame.setLocationRelativeTo(null);
-		frameCadastroSupervisorFrame.add(panelSupervisor);
+		frameCadastroSupervisor.setVisible(true);
+		frameCadastroSupervisor.setLocationRelativeTo(null);
+		frameCadastroSupervisor.add(panelSupervisor);
 
 		ControladorTelaCadastroSupervisor controladorTelaCadastroSupervisor = new ControladorTelaCadastroSupervisor(
-				textoNome, textoCpf, textoEmail);
+				textoNome, textoCpf, textoEmail, frameTelaPrincipal, frameCadastroSupervisor);
 		botaoCadastrarSupervisor.addActionListener(controladorTelaCadastroSupervisor);
+		botaoVoltarMenu.addActionListener(controladorTelaCadastroSupervisor);
 
 	}
 }

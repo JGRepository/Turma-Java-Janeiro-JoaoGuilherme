@@ -1,3 +1,3 @@
-O nome do Supervisor é: 1
-O cpf do supervisor é:2
-O email do supervisor é: 3
+O nome do Supervisor é: asd
+O cpf do supervisor é:258.909.730-10
+O email do supervisor é: null
