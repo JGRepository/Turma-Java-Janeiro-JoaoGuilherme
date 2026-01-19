@@ -7,12 +7,15 @@ import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+import interfaceGrafica.TelaCadastroAuxiliarAdministrativo;
 import interfaceGrafica.TelaCadastroSupervisor;
 
 public class ControladorPaginaPrincipal implements ActionListener {
 	JTextField opcao;
 	TelaCadastroSupervisor telaCadastroSupervisor = new TelaCadastroSupervisor();
-		JFrame frameTelaPrincipal;
+	TelaCadastroAuxiliarAdministrativo telaCadastroAuxiliarAdministrativo = new TelaCadastroAuxiliarAdministrativo();
+	JFrame frameTelaPrincipal;
+
 
 	public ControladorPaginaPrincipal(JTextField valorCaixaTextoOpcao, JFrame frameTelaPrincipal) {
 		this.opcao = valorCaixaTextoOpcao;
@@ -28,6 +31,8 @@ public class ControladorPaginaPrincipal implements ActionListener {
 			break;
 		}
 		case "2": {
+			telaCadastroAuxiliarAdministrativo.formularioAuxiliarAdmnistrativo(frameTelaPrincipal);
+			frameTelaPrincipal.setVisible(false);
 			break;
 		}
 		default:

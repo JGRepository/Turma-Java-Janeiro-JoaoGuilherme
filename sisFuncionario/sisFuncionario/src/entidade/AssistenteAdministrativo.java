@@ -2,14 +2,14 @@ package entidade;
 
 public class AssistenteAdministrativo extends Pessoa {
 	
-	 private String assistenteAdministrativoString;
+	 private String assistenteAdministrativo;
 
-	public String getAssistenteAdministrativoString() {
-		return assistenteAdministrativoString;
+	public String getAssistenteAdministrativo() {
+		return assistenteAdministrativo;
 	}
 
-	public void setAssistenteAdministrativoString(String assistenteAdministrativoString) {
-		this.assistenteAdministrativoString = assistenteAdministrativoString;
+	public void setAssistenteAdministrativo(String assistenteAdministrativoString) {
+		this.assistenteAdministrativo = assistenteAdministrativoString;
 	}
 
 }

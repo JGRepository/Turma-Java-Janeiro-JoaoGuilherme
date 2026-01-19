@@ -7,27 +7,28 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import entidade.AssistenteAdministrativo;
 import entidade.SupervisorAuxiliar;
 import gerenciaArquivo.ManipuladorArquivo;
 
-public class ControladorTelaCadastroSupervisor implements ActionListener {
+public class ControladorTelaCadastroAssistenteAdministrativo implements ActionListener {
 
 	JTextField nome;
 	JTextField cpf;
 	JTextField email;
-	SupervisorAuxiliar supervisorAuxiliar;
+	AssistenteAdministrativo assistenteAdministrativo;
 	ManipuladorArquivo manipuladorArquivo = new ManipuladorArquivo();
 	JFrame frameTelaPrincipal;
-	JFrame frameCadastroSupervisor;
+	JFrame frameCadastroAssistenteAdministrativo;
 
-	public ControladorTelaCadastroSupervisor(JTextField nome, JTextField cpf, JTextField email,
-			JFrame frameTelaPrincipal, JFrame frameCadastroSupervisor) {
+	public ControladorTelaCadastroAssistenteAdministrativo(JTextField nome, JTextField cpf, JTextField email,
+			JFrame frameTelaPrincipal, JFrame frameCadastroAssistenteAdministrativo) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
 		this.frameTelaPrincipal = frameTelaPrincipal;
-		this.frameCadastroSupervisor = frameCadastroSupervisor;
+		this.frameCadastroAssistenteAdministrativo = frameCadastroAssistenteAdministrativo;
 	}
 
 	@Override
@@ -40,17 +41,17 @@ public class ControladorTelaCadastroSupervisor implements ActionListener {
 		switch (e.getActionCommand()) {
 		case "CADASTRAR": {
 
-			SupervisorAuxiliar supervisorAuxiliar = new SupervisorAuxiliar();
-			supervisorAuxiliar.setNome(nome.getText());
+			AssistenteAdministrativo assistenteAdministrativo = new AssistenteAdministrativo();
+			assistenteAdministrativo.setNome(nome.getText());
 
-			if (!supervisorAuxiliar.isCpfValido(cpf.getText())) {
+			if (!assistenteAdministrativo.isCpfValido(cpf.getText())) {
 				JOptionPane.showMessageDialog(null, "CPF INVALIDO!");
 
 			} else {
-				supervisorAuxiliar.setCpf(cpf.getText());
-				supervisorAuxiliar.setEmail(email.getText());
+				assistenteAdministrativo.setCpf(cpf.getText());
+				assistenteAdministrativo.setEmail(email.getText());
 
-				if (manipuladorArquivo.registrarSupervisorAuxiliar(supervisorAuxiliar)) {
+				if (manipuladorArquivo.registrarAssistenteAdministrativo(assistenteAdministrativo)) {
 
 					JOptionPane.showMessageDialog(null, "O arquivo foi salvo com sucesso!!");
 
@@ -67,7 +68,7 @@ public class ControladorTelaCadastroSupervisor implements ActionListener {
 		}
 
 		case "MENU PRINCIPAL": {
-			frameCadastroSupervisor.setVisible(false);
+			frameCadastroAssistenteAdministrativo.setVisible(false);
 			frameTelaPrincipal.setVisible(true);
 
 			break;

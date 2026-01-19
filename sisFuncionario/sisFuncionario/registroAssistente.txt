@@ -1,3 +1,3 @@
-O nome do Supervisor é: arthur
+O nome do Supervisor é: tete
 O cpf do supervisor é:258.909.730-10
 O email do supervisor é: email@email.com
