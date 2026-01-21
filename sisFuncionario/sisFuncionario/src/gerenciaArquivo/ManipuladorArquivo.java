@@ -31,7 +31,7 @@ public class ManipuladorArquivo {
 		
 		
 		} catch (IOException e) {
-			System.out.println("Erro ao salvar o gerente");
+			System.out.println("Erro ao salvar o supervisor");
 			return false;
 		}
 	
@@ -58,7 +58,7 @@ public class ManipuladorArquivo {
 			
 			
 		} catch (IOException e) {
-			System.out.println("Erro ao salvar o gerente");
+			System.out.println("Erro ao salvar o Assistente");
 			return false;
 		}
 		
