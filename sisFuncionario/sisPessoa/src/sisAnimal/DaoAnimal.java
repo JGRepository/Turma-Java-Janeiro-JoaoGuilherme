@@ -8,22 +8,45 @@ import sisPessoa.FabricaConexao;
 
 public class DaoAnimal {
 
-	public boolean salvarNoBanco(Animal animal) {
+	public boolean salvarNoBanco(Animal animal, String query) {
 		boolean salvar = false;
+		String sqlQuery;
+		
+	    if ("INSERT".equalsIgnoreCase(query)) {
+	    	sqlQuery = "INSERT INTO animal (matricula, nome, nomeTutor) VALUES (?, ?, ?)";
+	    } else if ("UPDATE".equalsIgnoreCase(query)) {
+	    	sqlQuery = "UPDATE animal SET nome = ?, nomeTutor = ? WHERE matricula = ?";
+	    } else if ("DELETE".equalsIgnoreCase(query)) {
+	    	sqlQuery = "DELETE from animal where matricula = ?";
+			
+		} else{
+	        System.out.println("Operação inválida");
+	        return false;
+	    }
 
-		String comandoSqlInsert = "insert into animal (matricula, nome, nomeTutor) values (?, ?, ?)";
+
 		FabricaConexao fabricaConexao = new FabricaConexao();
 		Connection conexaoSisPessoa = null;
-
 		PreparedStatement preparaComando = null;
 
+		
+		
 		try {
 			conexaoSisPessoa = fabricaConexao.conectar();
-			preparaComando = conexaoSisPessoa.prepareStatement(comandoSqlInsert);
+			preparaComando = conexaoSisPessoa.prepareStatement(sqlQuery);
 
-			preparaComando.setString(1, animal.getMatricula());
-			preparaComando.setString(2, animal.getNome());
-			preparaComando.setString(3, animal.getNomeTutor());
+			if ("INSERT".equalsIgnoreCase(query)) {
+				preparaComando.setString(1, animal.getMatricula());
+				preparaComando.setString(2, animal.getNome());
+				preparaComando.setString(3, animal.getNomeTutor());
+	        } else if ("UPDATE".equalsIgnoreCase(query)){
+	        	preparaComando.setString(1, animal.getNome());
+	        	preparaComando.setString(2, animal.getNomeTutor());
+	        	preparaComando.setString(3, animal.getMatricula());
+	        } else if ("DELETE".equalsIgnoreCase(query)){
+	        	preparaComando.setString(1, animal.getMatricula());
+	 
+	        }
 
 			preparaComando.execute();
 			salvar = true;

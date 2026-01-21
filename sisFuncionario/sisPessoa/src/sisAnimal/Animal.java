@@ -8,11 +8,11 @@ public class Animal {
 	
 	
 	
-	public Animal(String nome, String nomeTutor, String matricula) {
+	public Animal(String matricula, String nome, String nomeTutor) {
 		super();
+		this.matricula = matricula;
 		this.nome = nome;
 		this.nomeTutor = nomeTutor;
-		this.matricula = matricula;
 	}
 	public String getNome() {
 		return nome;

@@ -1,7 +1,5 @@
 package sisPessoa;
 
-import sisAnimal.Animal;
-import sisAnimal.DaoAnimal;
 
 public class Principal {
 
