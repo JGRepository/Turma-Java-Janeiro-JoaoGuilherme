@@ -1,8 +1,10 @@
-package sisPessoa;
+package sisAnimal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import sisPessoa.FabricaConexao;
 
 public class DaoAnimal {
 

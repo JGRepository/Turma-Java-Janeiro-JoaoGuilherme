@@ -1,4 +1,4 @@
-package sisPessoa;
+package sisAnimal;
 
 public class Animal {
 
