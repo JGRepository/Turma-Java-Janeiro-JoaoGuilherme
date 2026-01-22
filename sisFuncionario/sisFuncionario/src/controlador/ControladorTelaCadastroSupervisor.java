@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import bancoDados.dao.DaoSupervisor;
 import entidade.SupervisorAuxiliar;
 import gerenciaArquivo.ManipuladorArquivo;
 
@@ -19,6 +20,7 @@ public class ControladorTelaCadastroSupervisor implements ActionListener {
 	ManipuladorArquivo manipuladorArquivo = new ManipuladorArquivo();
 	JFrame frameTelaPrincipal;
 	JFrame frameCadastroSupervisor;
+	DaoSupervisor salvarSupervisor = new DaoSupervisor();
 
 	public ControladorTelaCadastroSupervisor(JTextField nome, JTextField cpf, JTextField email,
 			JFrame frameTelaPrincipal, JFrame frameCadastroSupervisor) {
@@ -40,7 +42,7 @@ public class ControladorTelaCadastroSupervisor implements ActionListener {
 		switch (e.getActionCommand()) {
 		case "CADASTRAR": {
 
-			SupervisorAuxiliar supervisorAuxiliar = new SupervisorAuxiliar();
+			SupervisorAuxiliar supervisorAuxiliar = new SupervisorAuxiliar(null, null, null);
 			supervisorAuxiliar.setNome(nome.getText());
 
 			if (!supervisorAuxiliar.isCpfValido(cpf.getText())) {
@@ -50,7 +52,7 @@ public class ControladorTelaCadastroSupervisor implements ActionListener {
 				supervisorAuxiliar.setCpf(cpf.getText());
 				supervisorAuxiliar.setEmail(email.getText());
 
-				if (manipuladorArquivo.registrarSupervisorAuxiliar(supervisorAuxiliar)) {
+				if (salvarSupervisor.salvarSupervisor(supervisorAuxiliar, "INSERT")) {
 
 					JOptionPane.showMessageDialog(null, "O arquivo foi salvo com sucesso!!");
 

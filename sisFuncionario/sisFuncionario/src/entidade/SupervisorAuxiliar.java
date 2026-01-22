@@ -2,6 +2,11 @@ package entidade;
 
 public class SupervisorAuxiliar extends Pessoa {
 
+	public SupervisorAuxiliar(String cpf, String nome, String email) {
+		super(cpf, nome, email);
+		// TODO Auto-generated constructor stub
+	}
+
 	private String supervisorAuxiliar;
 	private String patio;
 

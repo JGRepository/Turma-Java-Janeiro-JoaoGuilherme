@@ -1,3 +1,3 @@
-O nome do Supervisor é: arthur
-O cpf do supervisor é:258.909.730-10
-O email do supervisor é: email@email.com
+O nome do Supervisor é: Joao
+O CPF do supervisor é:76621895038
+O email do supervisor é: eamil

@@ -2,7 +2,12 @@ package entidade;
 
 public class AssistenteAdministrativo extends Pessoa {
 	
-	 private String assistenteAdministrativo;
+	 public AssistenteAdministrativo(String cpf, String nome, String email) {
+		super(cpf, nome, email);
+		// TODO Auto-generated constructor stub
+	}
+
+	private String assistenteAdministrativo;
 	 private String escritorio;
 
 	public String getEscritorio() {

@@ -41,7 +41,7 @@ public class ControladorTelaCadastroAssistenteAdministrativo implements ActionLi
 		switch (e.getActionCommand()) {
 		case "CADASTRAR": {
 
-			AssistenteAdministrativo assistenteAdministrativo = new AssistenteAdministrativo();
+			AssistenteAdministrativo assistenteAdministrativo = new AssistenteAdministrativo(null, null, null);
 			assistenteAdministrativo.setNome(nome.getText());
 
 			if (!assistenteAdministrativo.isCpfValido(cpf.getText())) {
