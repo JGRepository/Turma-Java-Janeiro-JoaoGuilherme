@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import bancoDados.dao.DaoAssistente;
+import bancoDados.dao.DaoSupervisor;
 import entidade.AssistenteAdministrativo;
 import entidade.SupervisorAuxiliar;
 import gerenciaArquivo.ManipuladorArquivo;
@@ -20,6 +22,7 @@ public class ControladorTelaCadastroAssistenteAdministrativo implements ActionLi
 	ManipuladorArquivo manipuladorArquivo = new ManipuladorArquivo();
 	JFrame frameTelaPrincipal;
 	JFrame frameCadastroAssistenteAdministrativo;
+	DaoAssistente salvarAssistente = new DaoAssistente();
 
 	public ControladorTelaCadastroAssistenteAdministrativo(JTextField nome, JTextField cpf, JTextField email,
 			JFrame frameTelaPrincipal, JFrame frameCadastroAssistenteAdministrativo) {
@@ -51,7 +54,7 @@ public class ControladorTelaCadastroAssistenteAdministrativo implements ActionLi
 				assistenteAdministrativo.setCpf(cpf.getText());
 				assistenteAdministrativo.setEmail(email.getText());
 
-				if (manipuladorArquivo.registrarAssistenteAdministrativo(assistenteAdministrativo)) {
+				if (salvarAssistente.salvarAssistente(assistenteAdministrativo, "INSERT")) {
 
 					JOptionPane.showMessageDialog(null, "O arquivo foi salvo com sucesso!!");
 
