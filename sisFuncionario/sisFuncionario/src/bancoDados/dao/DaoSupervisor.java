@@ -87,7 +87,7 @@ public class DaoSupervisor {
 
 			String comandoSqlInsert = "select * from supervisor"; 
 			
-			List<SupervisorAuxiliar> listaGerente = new ArrayList<SupervisorAuxiliar>();
+			List<SupervisorAuxiliar> listaSupervisorAuxiliar = new ArrayList<SupervisorAuxiliar>();
 			
 			ResultSet resultadoDaTabelaDoBanco = null;
 			
@@ -109,7 +109,7 @@ public class DaoSupervisor {
 					
 					supervisorAuxiliar.setEmail(resultadoDaTabelaDoBanco.getString("email"));
 					
-					listaGerente.add(supervisorAuxiliar);
+					listaSupervisorAuxiliar.add(supervisorAuxiliar);
 					
 					
 				}
@@ -118,13 +118,13 @@ public class DaoSupervisor {
 			}catch (Exception e) {
 				
 			
-			} finally { // Esse é obrigatorio
+			} finally { 
 			try {
 				if (connection != null) {
-					connection.close();// Se objeto connectionBaseExemplo estiver aberto essa linha vai
-													// encerrar
+					connection.close();
+													
 				}
-				if (preparaOcomandoSQL != null) {// Se objeto preparaOcomandoSQL estiver aberto essa linha vai encerrar
+				if (preparaOcomandoSQL != null) {
 					preparaOcomandoSQL.close();
 				}
 
@@ -135,7 +135,7 @@ public class DaoSupervisor {
 		}
 
 			
-			return listaGerente;
+			return listaSupervisorAuxiliar;
 		
 	}
 

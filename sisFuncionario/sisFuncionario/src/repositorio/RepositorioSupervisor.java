@@ -7,6 +7,6 @@ import entidade.SupervisorAuxiliar;
 public interface RepositorioSupervisor {
 	public boolean salvarSupervisor(SupervisorAuxiliar supervisorAuxiliar) ;
 		
-	public  List<SupervisorAuxiliar> listarSupervisor();
+	public List<SupervisorAuxiliar> listarSupervisor();
 
 }
