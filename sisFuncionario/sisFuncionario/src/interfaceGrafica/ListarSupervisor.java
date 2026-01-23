@@ -22,13 +22,13 @@ public class ListarSupervisor {
 		int posicaoLinha = 0;
 		
 		
-		for(SupervisorAuxiliar gerente: listaSupervisorAuxiliares) {
+		for(SupervisorAuxiliar supervisorAuxiliar: listaSupervisorAuxiliares) {
 			
-			tabelaString[posicaoLinha][posicaoColuna] = gerente.getCpf();
+			tabelaString[posicaoLinha][posicaoColuna] = supervisorAuxiliar.getCpf();
 			posicaoColuna ++;
-			tabelaString[posicaoLinha][posicaoColuna] = gerente.getNome();
+			tabelaString[posicaoLinha][posicaoColuna] = supervisorAuxiliar.getNome();
 			posicaoColuna++;
-			tabelaString[posicaoLinha][posicaoColuna] = gerente.getEmail();
+			tabelaString[posicaoLinha][posicaoColuna] = supervisorAuxiliar.getEmail();
 			
 			posicaoColuna = 0;
 			posicaoLinha ++;
@@ -36,22 +36,22 @@ public class ListarSupervisor {
 		
 		String [] nomeColunas = {"CPF", "NOME", "EMAIL"};
 		
-		JFrame frameListarGerentes = new JFrame();
-		frameListarGerentes.setSize(475, 450);
+		JFrame frameListarSupervisores = new JFrame();
+		frameListarSupervisores.setSize(475, 450);
 		
-		JTable tabelaGerentes = new JTable(tabelaString, nomeColunas);
-		tabelaGerentes.setSize(1000,1000);
-		tabelaGerentes.setBounds(30,40,300,300);
+		JTable tabelaSupervisor = new JTable(tabelaString, nomeColunas);
+		tabelaSupervisor.setSize(1000,1000);
+		tabelaSupervisor.setBounds(30,40,300,300);
 		
-		JScrollPane scrollPaneListarGerente = new JScrollPane(tabelaGerentes);
+		JScrollPane scrollPaneListarSupervisor = new JScrollPane(tabelaSupervisor);
 		
-		JPanel panelListarGerente = new JPanel();
-		panelListarGerente.add(scrollPaneListarGerente);
+		JPanel panelListarSupervisor = new JPanel();
+		panelListarSupervisor.add(scrollPaneListarSupervisor);
 		
-		frameListarGerentes.add(panelListarGerente);
+		frameListarSupervisores.add(panelListarSupervisor);
 		
 	
-		frameListarGerentes.setVisible(true);
+		frameListarSupervisores.setVisible(true);
 		
 		
 	}
