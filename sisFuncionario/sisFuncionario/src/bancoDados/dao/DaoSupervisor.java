@@ -2,7 +2,10 @@ package bancoDados.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import bancoDados.configuracao.FabricaConexao;
 import entidade.SupervisorAuxiliar;
@@ -71,6 +74,69 @@ public class DaoSupervisor {
 		}
 
 		return salvar;
+	}
+	
+	public List<SupervisorAuxiliar> listarSupervisorAuxiliar(){
+		
+		
+	
+			
+			FabricaConexao conexaoFabricaConexao = new FabricaConexao();
+			Connection connection = null; 
+			PreparedStatement preparaOcomandoSQL = null; 
+
+			String comandoSqlInsert = "select * from supervisor"; 
+			
+			List<SupervisorAuxiliar> listaGerente = new ArrayList<SupervisorAuxiliar>();
+			
+			ResultSet resultadoDaTabelaDoBanco = null;
+			
+			try {
+				
+				connection = conexaoFabricaConexao.conectar();
+				preparaOcomandoSQL = connection.prepareStatement(comandoSqlInsert);
+				
+				
+				resultadoDaTabelaDoBanco = preparaOcomandoSQL.executeQuery();
+				
+				while(resultadoDaTabelaDoBanco.next()) {
+					
+					SupervisorAuxiliar supervisorAuxiliar = new SupervisorAuxiliar();
+					
+					supervisorAuxiliar.setCpf(resultadoDaTabelaDoBanco.getString("cpf"));
+					
+					supervisorAuxiliar.setNome(resultadoDaTabelaDoBanco.getString("nome"));
+					
+					supervisorAuxiliar.setEmail(resultadoDaTabelaDoBanco.getString("email"));
+					
+					listaGerente.add(supervisorAuxiliar);
+					
+					
+				}
+				
+				
+			}catch (Exception e) {
+				
+			
+			} finally { // Esse é obrigatorio
+			try {
+				if (connection != null) {
+					connection.close();// Se objeto connectionBaseExemplo estiver aberto essa linha vai
+													// encerrar
+				}
+				if (preparaOcomandoSQL != null) {// Se objeto preparaOcomandoSQL estiver aberto essa linha vai encerrar
+					preparaOcomandoSQL.close();
+				}
+
+			} catch (Exception e2) {
+				System.out.println("Não foi possivel fechar a conexão!!");
+			}
+
+		}
+
+			
+			return listaGerente;
+		
 	}
 
 }

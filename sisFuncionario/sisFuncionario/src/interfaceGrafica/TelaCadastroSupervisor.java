@@ -43,6 +43,9 @@ public class TelaCadastroSupervisor {
 		
 		JButton botaoVoltarMenu = new JButton("MENU PRINCIPAL");
 		panelSupervisor.add(botaoVoltarMenu);
+		
+		JButton botaoListar = new JButton("LISTAR");
+		panelSupervisor.add(botaoListar);
 
 		frameCadastroSupervisor.setVisible(true);
 		frameCadastroSupervisor.setLocationRelativeTo(null);
@@ -52,6 +55,7 @@ public class TelaCadastroSupervisor {
 				textoNome, textoCpf, textoEmail, frameTelaPrincipal, frameCadastroSupervisor);
 		botaoCadastrarSupervisor.addActionListener(controladorTelaCadastroSupervisor);
 		botaoVoltarMenu.addActionListener(controladorTelaCadastroSupervisor);
+		botaoListar.addActionListener(controladorTelaCadastroSupervisor);
 
 	}
 }

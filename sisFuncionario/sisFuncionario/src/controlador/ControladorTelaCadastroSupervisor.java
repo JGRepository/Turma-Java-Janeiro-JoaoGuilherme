@@ -10,6 +10,8 @@ import javax.swing.JTextField;
 import bancoDados.dao.DaoSupervisor;
 import entidade.SupervisorAuxiliar;
 import gerenciaArquivo.ManipuladorArquivo;
+import interfaceGrafica.ListarSupervisor;
+import repositorio.RepositorioSupervisorImplementacao;
 
 public class ControladorTelaCadastroSupervisor implements ActionListener {
 
@@ -21,6 +23,8 @@ public class ControladorTelaCadastroSupervisor implements ActionListener {
 	JFrame frameTelaPrincipal;
 	JFrame frameCadastroSupervisor;
 	DaoSupervisor salvarSupervisor = new DaoSupervisor();
+	ListarSupervisor listarSupervisor = new ListarSupervisor();
+	RepositorioSupervisorImplementacao repositorioSupervisorImplementacao = new RepositorioSupervisorImplementacao();
 
 	public ControladorTelaCadastroSupervisor(JTextField nome, JTextField cpf, JTextField email,
 			JFrame frameTelaPrincipal, JFrame frameCadastroSupervisor) {
@@ -42,7 +46,7 @@ public class ControladorTelaCadastroSupervisor implements ActionListener {
 		switch (e.getActionCommand()) {
 		case "CADASTRAR": {
 
-			SupervisorAuxiliar supervisorAuxiliar = new SupervisorAuxiliar(null, null, null);
+			SupervisorAuxiliar supervisorAuxiliar = new SupervisorAuxiliar();
 			supervisorAuxiliar.setNome(nome.getText());
 
 			if (!supervisorAuxiliar.isCpfValido(cpf.getText())) {
@@ -72,6 +76,10 @@ public class ControladorTelaCadastroSupervisor implements ActionListener {
 			frameCadastroSupervisor.setVisible(false);
 			frameTelaPrincipal.setVisible(true);
 
+			break;
+		}
+		case "LISTAR":{
+			listarSupervisor.listarResultados(repositorioSupervisorImplementacao.listarSupervisor()); 
 			break;
 		}
 		}
