@@ -2,11 +2,13 @@ package bancoDados.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import bancoDados.configuracao.FabricaConexao;
 import entidade.AssistenteAdministrativo;
-import entidade.SupervisorAuxiliar;
 
 public class DaoAssistente {
 
@@ -27,14 +29,13 @@ public class DaoAssistente {
 	    }
 
 
-		FabricaConexao fabricaConexao = new FabricaConexao();
 		Connection conexaoSisFuncionario = null;
 		PreparedStatement preparaComando = null;
 
 		
 		
 		try {
-			conexaoSisFuncionario = fabricaConexao.conectar();
+			conexaoSisFuncionario = FabricaConexao.conectar();
 			preparaComando = conexaoSisFuncionario.prepareStatement(sqlQuery);
 
 			if ("INSERT".equalsIgnoreCase(query)) {
@@ -73,5 +74,51 @@ public class DaoAssistente {
 
 		return salvar;
 	}
+public List<AssistenteAdministrativo> listarAssistenteAdministrativo() {
+		
+	Connection connection = null; 
+	PreparedStatement prepararOcomandoSql = null;
+		String comandoSqlInsert = "select * from assistente";
+		List<AssistenteAdministrativo> listaAssistente = new ArrayList<AssistenteAdministrativo>();
+		ResultSet resultadoDaTabelaDoBanco = null;
+		
+		try {
+			
+			connection = FabricaConexao.conectar();
+			prepararOcomandoSql = connection.prepareStatement(comandoSqlInsert);
+			resultadoDaTabelaDoBanco = prepararOcomandoSql.executeQuery();
+			
+			while (resultadoDaTabelaDoBanco.next()) {
+				
+				AssistenteAdministrativo assistenteAdministrativo = new AssistenteAdministrativo();
+				
+				assistenteAdministrativo.setCpf(resultadoDaTabelaDoBanco.getString("cpf"));
+				assistenteAdministrativo.setNome(resultadoDaTabelaDoBanco.getString("nome"));
+				assistenteAdministrativo.setEmail(resultadoDaTabelaDoBanco.getString("email"));
+				listaAssistente.add(assistenteAdministrativo);
+			}
+			
+	
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		finally {
+			try {
+				if (connection != null) {
+					connection.close();
+												
+				}
+				if (prepararOcomandoSql != null) {
+					prepararOcomandoSql.close();
+				}
+	
+			} catch (Exception e2) {
+				System.out.println("Não foi possivel fechar a conexão!!");
+			}
 
+	}
+		
+		
+		return listaAssistente;
+	}
 }

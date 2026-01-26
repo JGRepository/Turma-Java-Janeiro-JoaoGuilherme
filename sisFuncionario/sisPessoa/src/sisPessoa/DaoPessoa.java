@@ -10,13 +10,12 @@ public class DaoPessoa {
 		boolean salvar = false;
 
 		String comandoSqlInsert = "insert into pessoa (cpf, nome, email) values (?, ?, ?)";
-		FabricaConexao fabricaConexao = new FabricaConexao();
 		Connection conexaoSisPessoa = null;
 
 		PreparedStatement preparaComando = null;
 
 		try {
-			conexaoSisPessoa = fabricaConexao.conectar();
+			conexaoSisPessoa = FabricaConexao.conectar();
 			preparaComando = conexaoSisPessoa.prepareStatement(comandoSqlInsert);
 
 			preparaComando.setString(1, pessoa.getCpf());

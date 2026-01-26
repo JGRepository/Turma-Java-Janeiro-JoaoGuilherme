@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 
 import controlador.ControladorTelaCadastroAssistenteAdministrativo;
 
-public class TelaCadastroAuxiliarAdministrativo {
+public class TelaCadastroAssistenteAdministrativo {
 
 	public void formularioAuxiliarAdmnistrativo(JFrame frameTelaPrincipal) {
 		String nome = "Digite o nome";
@@ -43,6 +43,9 @@ public class TelaCadastroAuxiliarAdministrativo {
 		
 		JButton botaoVoltarMenu = new JButton("MENU PRINCIPAL");
 		panelAssistenteAdministrativo.add(botaoVoltarMenu);
+		
+		JButton botaoListar = new JButton("LISTAR");
+		panelAssistenteAdministrativo.add(botaoListar);
 
 		frameCadastroAssistenteAdministrativo.setVisible(true);
 		frameCadastroAssistenteAdministrativo.setLocationRelativeTo(null);
@@ -52,6 +55,7 @@ public class TelaCadastroAuxiliarAdministrativo {
 				textoNome, textoCpf, textoEmail, frameTelaPrincipal, frameCadastroAssistenteAdministrativo);
 		botaoCadastrarSupervisor.addActionListener(controladorTelaCadastroAssistenteAdministrativo);
 		botaoVoltarMenu.addActionListener(controladorTelaCadastroAssistenteAdministrativo);
+		botaoListar.addActionListener(controladorTelaCadastroAssistenteAdministrativo);
 
 	}
 }

@@ -24,7 +24,7 @@ public class Principal {
 				daoAnimal.salvarNoBanco(animalUpdate, "UPDATE");
 				
 			} else if (opcaoQuery.equalsIgnoreCase("D")) {
-				daoAnimal.salvarNoBanco(animalUpdate, "DELETE");
+				daoAnimal.salvarNoBanco(animalDelete, "DELETE");
 				
 			} else {
 				JOptionPane.showMessageDialog(null, "Por favor, selecione alguma opção válida.");

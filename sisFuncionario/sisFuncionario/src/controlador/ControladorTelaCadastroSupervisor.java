@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import bancoDados.dao.DaoSupervisor;
 import entidade.SupervisorAuxiliar;
 import gerenciaArquivo.ManipuladorArquivo;
-import interfaceGrafica.ListarSupervisor;
+import interfaceGrafica.TelaListarSupervisor;
 import repositorio.RepositorioSupervisorImplementacao;
 
 public class ControladorTelaCadastroSupervisor implements ActionListener {
@@ -23,7 +23,7 @@ public class ControladorTelaCadastroSupervisor implements ActionListener {
 	JFrame frameTelaPrincipal;
 	JFrame frameCadastroSupervisor;
 	DaoSupervisor salvarSupervisor = new DaoSupervisor();
-	ListarSupervisor listarSupervisor = new ListarSupervisor();
+	TelaListarSupervisor listarSupervisor = new TelaListarSupervisor();
 	RepositorioSupervisorImplementacao repositorioSupervisorImplementacao = new RepositorioSupervisorImplementacao();
 
 	public ControladorTelaCadastroSupervisor(JTextField nome, JTextField cpf, JTextField email,
@@ -47,6 +47,7 @@ public class ControladorTelaCadastroSupervisor implements ActionListener {
 		case "CADASTRAR": {
 
 			SupervisorAuxiliar supervisorAuxiliar = new SupervisorAuxiliar();
+
 			supervisorAuxiliar.setNome(nome.getText());
 
 			if (!supervisorAuxiliar.isCpfValido(cpf.getText())) {
@@ -64,7 +65,9 @@ public class ControladorTelaCadastroSupervisor implements ActionListener {
 					cpf.setText(null);
 					email.setText(null);
 
-				} else {
+				}
+
+				else {
 					JOptionPane.showMessageDialog(null, "O arquivo não salvo com sucesso!!!!!");
 				}
 			}
@@ -78,12 +81,16 @@ public class ControladorTelaCadastroSupervisor implements ActionListener {
 
 			break;
 		}
-		case "LISTAR":{
-			listarSupervisor.listarResultados(repositorioSupervisorImplementacao.listarSupervisor()); 
+		case "LISTAR": {
+			listarSupervisor.listarResultados(repositorioSupervisorImplementacao.listarSupervisor());
 			break;
 		}
-		}
 
+		case "DETALHAR": {
+			System.out.println("chegou aqui");
+
+		}
+		}
 	}
 
 }

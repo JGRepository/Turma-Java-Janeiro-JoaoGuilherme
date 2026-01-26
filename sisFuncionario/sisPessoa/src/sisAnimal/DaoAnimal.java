@@ -25,14 +25,13 @@ public class DaoAnimal {
 	    }
 
 
-		FabricaConexao fabricaConexao = new FabricaConexao();
 		Connection conexaoSisPessoa = null;
 		PreparedStatement preparaComando = null;
 
 		
 		
 		try {
-			conexaoSisPessoa = fabricaConexao.conectar();
+			conexaoSisPessoa = FabricaConexao.conectar();
 			preparaComando = conexaoSisPessoa.prepareStatement(sqlQuery);
 
 			if ("INSERT".equalsIgnoreCase(query)) {

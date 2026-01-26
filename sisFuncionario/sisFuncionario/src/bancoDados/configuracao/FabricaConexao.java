@@ -10,7 +10,7 @@ public class FabricaConexao {
 	private static String SENHA = "root";
 	private static String BANCO_URL = "jdbc:mysql://localhost:3306/sis_funcionario";
 
-	public  Connection conectar() {
+	public static Connection conectar() {
 
 		Connection conexao = null;
 

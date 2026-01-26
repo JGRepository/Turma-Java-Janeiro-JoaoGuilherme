@@ -15,47 +15,43 @@ public class DaoSupervisor {
 	public boolean salvarSupervisor(SupervisorAuxiliar supervisorAuxiliar, String query) {
 		boolean salvar = false;
 		String sqlQuery;
-		
-	    if ("INSERT".equalsIgnoreCase(query)) {
-	    	sqlQuery = "INSERT INTO supervisor (cpf, nome, email) VALUES (?, ?, ?)";
-	    } else if ("UPDATE".equalsIgnoreCase(query)) {
-	    	sqlQuery = "UPDATE supervisor SET nome = ?, email = ? WHERE cpf = ?";
-	    } else if ("DELETE".equalsIgnoreCase(query)) {
-	    	sqlQuery = "DELETE from supervisor where cpf = ?";
-			
-		} else{
-	        System.out.println("Operação inválida");
-	        return false;
-	    }
 
+		if ("INSERT".equalsIgnoreCase(query)) {
+			sqlQuery = "INSERT INTO supervisor (cpf, nome, email) VALUES (?, ?, ?)";
+		} else if ("UPDATE".equalsIgnoreCase(query)) {
+			sqlQuery = "UPDATE supervisor SET nome = ?, email = ? WHERE cpf = ?";
+		} else if ("DELETE".equalsIgnoreCase(query)) {
+			sqlQuery = "DELETE from supervisor where cpf = ?";
 
-		FabricaConexao fabricaConexao = new FabricaConexao();
+		} else {
+			System.out.println("Operação inválida");
+			return false;
+		}
+
 		Connection conexaoSisFuncionario = null;
 		PreparedStatement preparaComando = null;
 
-		
-		
 		try {
-			conexaoSisFuncionario = fabricaConexao.conectar();
+			conexaoSisFuncionario = FabricaConexao.conectar();
 			preparaComando = conexaoSisFuncionario.prepareStatement(sqlQuery);
 
 			if ("INSERT".equalsIgnoreCase(query)) {
 				preparaComando.setString(1, supervisorAuxiliar.getCpf());
 				preparaComando.setString(2, supervisorAuxiliar.getNome());
 				preparaComando.setString(3, supervisorAuxiliar.getEmail());
-	        } else if ("UPDATE".equalsIgnoreCase(query)){
-	        	preparaComando.setString(1, supervisorAuxiliar.getNome());
-	        	preparaComando.setString(2, supervisorAuxiliar.getEmail());
-	        	preparaComando.setString(3, supervisorAuxiliar.getCpf());
-	        } else if ("DELETE".equalsIgnoreCase(query)){
-	        	preparaComando.setString(1, supervisorAuxiliar.getCpf());
-	 
-	        }
+			} else if ("UPDATE".equalsIgnoreCase(query)) {
+				preparaComando.setString(1, supervisorAuxiliar.getNome());
+				preparaComando.setString(2, supervisorAuxiliar.getEmail());
+				preparaComando.setString(3, supervisorAuxiliar.getCpf());
+			} else if ("DELETE".equalsIgnoreCase(query)) {
+				preparaComando.setString(1, supervisorAuxiliar.getCpf());
+
+			}
 
 			preparaComando.execute();
 			salvar = true;
 		} catch (SQLException e) {
-			System.out.println("Erro ao executar o INSERT");
+			System.out.println("Erro ao executar o COMANDO");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -75,54 +71,43 @@ public class DaoSupervisor {
 
 		return salvar;
 	}
-	
-	public List<SupervisorAuxiliar> listarSupervisorAuxiliar(){
-		
-		
-	
-			
-			FabricaConexao conexaoFabricaConexao = new FabricaConexao();
-			Connection connection = null; 
-			PreparedStatement preparaOcomandoSQL = null; 
 
-			String comandoSqlInsert = "select * from supervisor"; 
-			
-			List<SupervisorAuxiliar> listaSupervisorAuxiliar = new ArrayList<SupervisorAuxiliar>();
-			
-			ResultSet resultadoDaTabelaDoBanco = null;
-			
-			try {
-				
-				connection = conexaoFabricaConexao.conectar();
-				preparaOcomandoSQL = connection.prepareStatement(comandoSqlInsert);
-				
-				
-				resultadoDaTabelaDoBanco = preparaOcomandoSQL.executeQuery();
-				
-				while(resultadoDaTabelaDoBanco.next()) {
-					
-					SupervisorAuxiliar supervisorAuxiliar = new SupervisorAuxiliar();
-					
-					supervisorAuxiliar.setCpf(resultadoDaTabelaDoBanco.getString("cpf"));
-					
-					supervisorAuxiliar.setNome(resultadoDaTabelaDoBanco.getString("nome"));
-					
-					supervisorAuxiliar.setEmail(resultadoDaTabelaDoBanco.getString("email"));
-					
-					listaSupervisorAuxiliar.add(supervisorAuxiliar);
-					
-					
-				}
-				
-				
-			}catch (Exception e) {
-				
-			
-			} finally { 
+	public List<SupervisorAuxiliar> listarSupervisorAuxiliar() {
+
+		Connection connection = null;
+		PreparedStatement preparaOcomandoSQL = null;
+
+		String comandoSqlInsert = "select * from supervisor";
+
+		List<SupervisorAuxiliar> listaSupervisorAuxiliar = new ArrayList<SupervisorAuxiliar>();
+
+		ResultSet resultadoDaTabelaDoBanco = null;
+
+		try {
+
+			connection = FabricaConexao.conectar();
+			preparaOcomandoSQL = connection.prepareStatement(comandoSqlInsert);
+
+			resultadoDaTabelaDoBanco = preparaOcomandoSQL.executeQuery();
+
+			while (resultadoDaTabelaDoBanco.next()) {
+
+				SupervisorAuxiliar supervisorAuxiliar = new SupervisorAuxiliar();
+
+				supervisorAuxiliar.setCpf(resultadoDaTabelaDoBanco.getString("cpf"));
+				supervisorAuxiliar.setNome(resultadoDaTabelaDoBanco.getString("nome"));
+				supervisorAuxiliar.setEmail(resultadoDaTabelaDoBanco.getString("email"));
+				listaSupervisorAuxiliar.add(supervisorAuxiliar);
+
+			}
+
+		} catch (Exception e) {
+
+		} finally {
 			try {
 				if (connection != null) {
 					connection.close();
-													
+
 				}
 				if (preparaOcomandoSQL != null) {
 					preparaOcomandoSQL.close();
@@ -134,9 +119,8 @@ public class DaoSupervisor {
 
 		}
 
-			
-			return listaSupervisorAuxiliar;
-		
+		return listaSupervisorAuxiliar;
+
 	}
 
 }

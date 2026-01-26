@@ -2,16 +2,18 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import bancoDados.dao.DaoAssistente;
-import bancoDados.dao.DaoSupervisor;
 import entidade.AssistenteAdministrativo;
-import entidade.SupervisorAuxiliar;
 import gerenciaArquivo.ManipuladorArquivo;
+import interfaceGrafica.TelaListarAssistente;
+import repositorio.RepositorioAssistenteImplementacao;
+import repositorio.RepositorioSupervisorImplementacao;
 
 public class ControladorTelaCadastroAssistenteAdministrativo implements ActionListener {
 
@@ -23,6 +25,9 @@ public class ControladorTelaCadastroAssistenteAdministrativo implements ActionLi
 	JFrame frameTelaPrincipal;
 	JFrame frameCadastroAssistenteAdministrativo;
 	DaoAssistente salvarAssistente = new DaoAssistente();
+	TelaListarAssistente telaListarAssistente = new TelaListarAssistente();
+	RepositorioAssistenteImplementacao repositorioAssistenteImplementacao = new RepositorioAssistenteImplementacao();
+
 
 	public ControladorTelaCadastroAssistenteAdministrativo(JTextField nome, JTextField cpf, JTextField email,
 			JFrame frameTelaPrincipal, JFrame frameCadastroAssistenteAdministrativo) {
@@ -32,6 +37,11 @@ public class ControladorTelaCadastroAssistenteAdministrativo implements ActionLi
 		this.email = email;
 		this.frameTelaPrincipal = frameTelaPrincipal;
 		this.frameCadastroAssistenteAdministrativo = frameCadastroAssistenteAdministrativo;
+	}
+
+	public ControladorTelaCadastroAssistenteAdministrativo(JTextField textCpf,
+			List<AssistenteAdministrativo> listaAssistente) {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -74,6 +84,11 @@ public class ControladorTelaCadastroAssistenteAdministrativo implements ActionLi
 			frameCadastroAssistenteAdministrativo.setVisible(false);
 			frameTelaPrincipal.setVisible(true);
 
+			break;
+		}
+		
+		case "LISTAR" :{
+			telaListarAssistente.listarAtendente(repositorioAssistenteImplementacao.listarAssistente());
 			break;
 		}
 		}
