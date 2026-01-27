@@ -39,7 +39,7 @@ public class TelaListarAssistente {
 		String[] nomeColunas = { "CPF", "NOME", "EMAIL" };
 
 		JFrame frameListarAssistente = new JFrame();
-		frameListarAssistente.setSize(475, 450);
+		frameListarAssistente.setSize(650, 500);
 
 		JTable tabelaAssistente = new JTable(tabelaString, nomeColunas);
 		tabelaAssistente.setSize(1000, 1000);
@@ -56,6 +56,15 @@ public class TelaListarAssistente {
 
 		JButton botaoDetalhar = new JButton("DETALHAR");
 		panelListarAssistente.add(botaoDetalhar);
+		
+		JButton botaoAlterar = new JButton("ALTERAR");
+		panelListarAssistente.add(botaoAlterar);
+		
+		JButton botaoDeletar = new JButton("DELETAR");
+		panelListarAssistente.add(botaoDeletar);
+		
+		JButton botaoMenu = new JButton("MENU INICIAL");
+		panelListarAssistente.add(botaoMenu);
 
 		panelListarAssistente.add(scrollPaneListarAtendente);
 
@@ -63,8 +72,11 @@ public class TelaListarAssistente {
 		frameListarAssistente.setLocationRelativeTo(null);
 		frameListarAssistente.setVisible(true);
 		
-		ControladorTelaListarAssistente controladorTelaListarAsistente = new ControladorTelaListarAssistente(textCpf, listaAssistente);
+		ControladorTelaListarAssistente controladorTelaListarAsistente = new ControladorTelaListarAssistente(textCpf, listaAssistente, frameListarAssistente);
 		botaoDetalhar.addActionListener(controladorTelaListarAsistente);
+		botaoAlterar.addActionListener(controladorTelaListarAsistente);
+		botaoDeletar.addActionListener(controladorTelaListarAsistente);
+		botaoMenu.addActionListener(controladorTelaListarAsistente);
 
 	}
 }

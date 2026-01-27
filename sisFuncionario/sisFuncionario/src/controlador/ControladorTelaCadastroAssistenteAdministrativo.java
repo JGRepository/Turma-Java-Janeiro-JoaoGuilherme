@@ -89,6 +89,7 @@ public class ControladorTelaCadastroAssistenteAdministrativo implements ActionLi
 		
 		case "LISTAR" :{
 			telaListarAssistente.listarAtendente(repositorioAssistenteImplementacao.listarAssistente());
+			frameCadastroAssistenteAdministrativo.setVisible(false);
 			break;
 		}
 		}

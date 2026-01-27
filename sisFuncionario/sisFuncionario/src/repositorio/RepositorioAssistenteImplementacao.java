@@ -1,25 +1,33 @@
- package repositorio;
+package repositorio;
 
 import java.util.List;
 
 import bancoDados.dao.DaoAssistente;
 import entidade.AssistenteAdministrativo;
 
-public class RepositorioAssistenteImplementacao implements RepositorioAtendente {
+public class RepositorioAssistenteImplementacao implements RepositorioAssistente {
 
-	DaoAssistente daoAssistente = new DaoAssistente();
-	
 	@Override
 	public boolean salvarAssistente(AssistenteAdministrativo assistenteAdministrativo) {
-		return daoAssistente.salvarAssistente(assistenteAdministrativo, null);
+		return DaoAssistente.alterarAssistente(assistenteAdministrativo);
 	}
 
 	@Override
 	public List<AssistenteAdministrativo> listarAssistente() {
-		return daoAssistente.listarAssistenteAdministrativo();
+		return DaoAssistente.listarAssistenteAdministrativo();
+	}
+
+	@Override
+	public boolean alterarAssistente(AssistenteAdministrativo assistenteAdministrativo) {
+		return DaoAssistente.alterarAssistente(assistenteAdministrativo);
+	}
+
+	@Override
+	public boolean deletarAssistente(String cpf) {
+		
+		return DaoAssistente.deletarAssistente(cpf);
 	}
 
 
-	
 
 }
