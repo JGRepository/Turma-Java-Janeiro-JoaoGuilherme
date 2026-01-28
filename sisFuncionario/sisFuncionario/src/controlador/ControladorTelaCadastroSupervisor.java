@@ -12,6 +12,7 @@ import entidade.SupervisorAuxiliar;
 import gerenciaArquivo.ManipuladorArquivo;
 import interfaceGrafica.TelaListarSupervisor;
 import repositorio.RepositorioSupervisorImplementacao;
+import validacao.Validacao;
 
 public class ControladorTelaCadastroSupervisor implements ActionListener {
 
@@ -47,31 +48,31 @@ public class ControladorTelaCadastroSupervisor implements ActionListener {
 		case "CADASTRAR": {
 
 			SupervisorAuxiliar supervisorAuxiliar = new SupervisorAuxiliar();
-
 			supervisorAuxiliar.setNome(nome.getText());
+			supervisorAuxiliar.setCpf(cpf.getText());
+			supervisorAuxiliar.setEmail(email.getText());
 
-			if (!supervisorAuxiliar.isCpfValido(cpf.getText())) {
-				JOptionPane.showMessageDialog(null, "CPF INVALIDO!");
+			String resultadoValidacao = Validacao.validaSupervisor(supervisorAuxiliar);
 
-			} else {
-				supervisorAuxiliar.setCpf(cpf.getText());
-				supervisorAuxiliar.setEmail(email.getText());
-
-				if (salvarSupervisor.salvarSupervisor(supervisorAuxiliar, "INSERT")) {
-
-					JOptionPane.showMessageDialog(null, "O arquivo foi salvo com sucesso!!");
-
+			if(resultadoValidacao == null) {
+				if (repositorioSupervisorImplementacao.salvarSupervisor(supervisorAuxiliar)) {
+					
+					JOptionPane.showMessageDialog(null, "Foi salvo com sucesso!!");
+	
 					nome.setText(null);
 					cpf.setText(null);
 					email.setText(null);
-
+	
+				} else {
+					JOptionPane.showMessageDialog(null, "Não foi salvo com sucesso!!!!!");
 				}
-
-				else {
-					JOptionPane.showMessageDialog(null, "O arquivo não salvo com sucesso!!!!!");
-				}
+				
+				
+			}else {
+				JOptionPane.showMessageDialog(null, resultadoValidacao);
 			}
 
+			
 			break;
 		}
 
@@ -82,7 +83,7 @@ public class ControladorTelaCadastroSupervisor implements ActionListener {
 			break;
 		}
 		case "LISTAR": {
-			listarSupervisor.listarResultados(repositorioSupervisorImplementacao.listarSupervisor());
+			listarSupervisor.listarSupervisor(repositorioSupervisorImplementacao.listarSupervisor());
 			break;
 		}
 

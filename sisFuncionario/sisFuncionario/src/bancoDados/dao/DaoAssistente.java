@@ -1,6 +1,5 @@
 package bancoDados.dao;
 
-import java.lang.invoke.StringConcatFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,54 +12,38 @@ import entidade.AssistenteAdministrativo;
 
 public class DaoAssistente {
 
-	public static boolean salvarAssistente(AssistenteAdministrativo assistenteAdministrativo, String query) {
+	public static boolean salvarAssistente(AssistenteAdministrativo assistenteAdministrativo) {
 		boolean salvar = false;
-		String sqlQuery;
 
-		if ("INSERT".equalsIgnoreCase(query)) {
-			sqlQuery = "INSERT INTO assistente (cpf, nome, email) VALUES (?, ?, ?)";
-		} else if ("UPDATE".equalsIgnoreCase(query)) {
-			sqlQuery = "UPDATE assistente SET nome = ?, email = ? WHERE cpf = ?";
-		} else if ("DELETE".equalsIgnoreCase(query)) {
-			sqlQuery = "DELETE from assistente where cpf = ?";
 
-		} else {
-			System.out.println("Operação inválida");
-			return false;
-		}
+		String comandoSqlInsert  = "INSERT INTO assistente (cpf, nome, email) VALUES (?, ?, ?)";
+	
 
-		Connection conexaoSisFuncionario = null;
-		PreparedStatement preparaComando = null;
+		Connection conectar = null;
+		PreparedStatement preparedStatement = null;
 
 		try {
-			conexaoSisFuncionario = FabricaConexao.conectar();
-			preparaComando = conexaoSisFuncionario.prepareStatement(sqlQuery);
+			conectar = FabricaConexao.conectar();
+			preparedStatement = conectar.prepareStatement(comandoSqlInsert);
+			preparedStatement.setString(1, assistenteAdministrativo.getCpf());
+			preparedStatement.setString(2, assistenteAdministrativo.getNome());
+			preparedStatement.setString(3, assistenteAdministrativo.getEmail());
 
-			if ("INSERT".equalsIgnoreCase(query)) {
-				preparaComando.setString(1, assistenteAdministrativo.getCpf());
-				preparaComando.setString(2, assistenteAdministrativo.getNome());
-				preparaComando.setString(3, assistenteAdministrativo.getEmail());
-			} else if ("UPDATE".equalsIgnoreCase(query)) {
-				preparaComando.setString(1, assistenteAdministrativo.getNome());
-				preparaComando.setString(2, assistenteAdministrativo.getEmail());
-				preparaComando.setString(3, assistenteAdministrativo.getCpf());
-			} else if ("DELETE".equalsIgnoreCase(query)) {
-				preparaComando.setString(1, assistenteAdministrativo.getCpf());
 
-			}
 
-			preparaComando.execute();
+			
+			preparedStatement.execute();
 			salvar = true;
 		} catch (SQLException e) {
 			System.out.println("Erro ao executar o INSERT");
 			e.printStackTrace();
 		} finally {
 			try {
-				if (conexaoSisFuncionario != null) {
-					conexaoSisFuncionario.close();
+				if (conectar != null) {
+					conectar.close();
 				}
-				if (preparaComando != null) {
-					preparaComando.close();
+				if (preparedStatement != null) {
+					preparedStatement.close();
 				}
 			}
 

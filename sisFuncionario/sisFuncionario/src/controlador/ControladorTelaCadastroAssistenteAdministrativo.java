@@ -10,10 +10,9 @@ import javax.swing.JTextField;
 
 import bancoDados.dao.DaoAssistente;
 import entidade.AssistenteAdministrativo;
-import gerenciaArquivo.ManipuladorArquivo;
 import interfaceGrafica.TelaListarAssistente;
 import repositorio.RepositorioAssistenteImplementacao;
-import repositorio.RepositorioSupervisorImplementacao;
+import validacao.Validacao;
 
 public class ControladorTelaCadastroAssistenteAdministrativo implements ActionListener {
 
@@ -21,13 +20,12 @@ public class ControladorTelaCadastroAssistenteAdministrativo implements ActionLi
 	JTextField cpf;
 	JTextField email;
 	AssistenteAdministrativo assistenteAdministrativo;
-	ManipuladorArquivo manipuladorArquivo = new ManipuladorArquivo();
 	JFrame frameTelaPrincipal;
 	JFrame frameCadastroAssistenteAdministrativo;
 	DaoAssistente salvarAssistente = new DaoAssistente();
 	TelaListarAssistente telaListarAssistente = new TelaListarAssistente();
 	RepositorioAssistenteImplementacao repositorioAssistenteImplementacao = new RepositorioAssistenteImplementacao();
-
+	AssistenteAdministrativo assistenteAdministrativo2 = new AssistenteAdministrativo();
 
 	public ControladorTelaCadastroAssistenteAdministrativo(JTextField nome, JTextField cpf, JTextField email,
 			JFrame frameTelaPrincipal, JFrame frameCadastroAssistenteAdministrativo) {
@@ -53,30 +51,33 @@ public class ControladorTelaCadastroAssistenteAdministrativo implements ActionLi
 
 		switch (e.getActionCommand()) {
 		case "CADASTRAR": {
-
+			
+			assistenteAdministrativo.setNome(nome.getText());
+			assistenteAdministrativo.setCpf(cpf.getText());
+			assistenteAdministrativo.setEmail(email.getText());
+			
+			String resultadoValidacao = Validacao.validaAssistente(assistenteAdministrativo);
 			AssistenteAdministrativo assistenteAdministrativo = new AssistenteAdministrativo();
 			assistenteAdministrativo.setNome(nome.getText());
-
-			if (!assistenteAdministrativo.isCpfValido(cpf.getText())) {
-				JOptionPane.showMessageDialog(null, "CPF INVALIDO!");
-
-			} else {
-				assistenteAdministrativo.setCpf(cpf.getText());
-				assistenteAdministrativo.setEmail(email.getText());
-
-				if (salvarAssistente.salvarAssistente(assistenteAdministrativo, "INSERT")) {
-
-					JOptionPane.showMessageDialog(null, "O arquivo foi salvo com sucesso!!");
-
+			if(resultadoValidacao == null) {
+				if (repositorioAssistenteImplementacao.salvarAssistente(assistenteAdministrativo)) {
+					
+					JOptionPane.showMessageDialog(null, "Foi salvo com sucesso!!");
+	
 					nome.setText(null);
 					cpf.setText(null);
 					email.setText(null);
-
+	
 				} else {
-					JOptionPane.showMessageDialog(null, "O arquivo não salvo com sucesso!!!!!");
+					JOptionPane.showMessageDialog(null, "Não foi salvo com sucesso!!!!!");
 				}
+				
+				
+			}else {
+				JOptionPane.showMessageDialog(null, resultadoValidacao);
 			}
 
+			
 			break;
 		}
 

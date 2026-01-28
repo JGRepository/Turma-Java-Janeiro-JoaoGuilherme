@@ -49,7 +49,8 @@ public class TelaAlterarAssistente {
 		frameTelaAlterarAssistente.setVisible(true);
 
 		ControladorTelaAlterarAssistente controladorTelaAlterarAssistente = new ControladorTelaAlterarAssistente(
-				textoNome, textoCpf, textoEmail);
+				textoNome, textoCpf, textoEmail, frameTelaAlterarAssistente);
 		botaoAlterar.addActionListener(controladorTelaAlterarAssistente);
+		botaoVoltar.addActionListener(controladorTelaAlterarAssistente);
 	}
 }

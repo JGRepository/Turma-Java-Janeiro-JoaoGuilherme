@@ -9,17 +9,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import entidade.AssistenteAdministrativo;
-import entidade.SupervisorAuxiliar;
 import interfaceGrafica.TelaAlterarAssistente;
 import interfaceGrafica.TelaDetalharAssistente;
 import interfaceGrafica.TelaListarAssistente;
 import interfaceGrafica.TelaPrincipal;
-import repositorio.RepositorioAssistente;
 import repositorio.RepositorioAssistenteImplementacao;
 
 public class ControladorTelaListarAssistente implements ActionListener {
 
-	JFrame frameListarSupervisores;
 	JFrame frameTelaListarAssistenteFrame;
 	JTextField textoCpf;
 	List<AssistenteAdministrativo> listaAssAdministrativos;
@@ -71,8 +68,8 @@ public class ControladorTelaListarAssistente implements ActionListener {
 
 				respositorioAssitenteAssistente.deletarAssistente(cpfDeletar);
 				JOptionPane.showMessageDialog(null, "CPF Deletado com Sucesso");
-
 				frameTelaListarAssistenteFrame.setVisible(false);
+
 				telaListarAssistente.listarAtendente(respositorioAssitenteAssistente.listarAssistente());
 
 			} else {

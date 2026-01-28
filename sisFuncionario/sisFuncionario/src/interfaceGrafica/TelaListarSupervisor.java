@@ -15,7 +15,7 @@ import entidade.SupervisorAuxiliar;
 
 public class TelaListarSupervisor {
 
-	public void listarResultados(List<SupervisorAuxiliar> listaSupervisorAuxiliares) {
+	public void listarSupervisor(List<SupervisorAuxiliar> listaSupervisorAuxiliares) {
 
 		int quantidadeLinhas = listaSupervisorAuxiliares.size();
 
@@ -39,7 +39,7 @@ public class TelaListarSupervisor {
 		String[] nomeColunas = { "CPF", "NOME", "EMAIL" };
 
 		JFrame frameListarSupervisores = new JFrame();
-		frameListarSupervisores.setSize(475, 450);
+		frameListarSupervisores.setSize(700, 500);
 
 		JTable tabelaSupervisor = new JTable(tabelaString, nomeColunas);
 		tabelaSupervisor.setSize(1000, 1000);
@@ -57,6 +57,15 @@ public class TelaListarSupervisor {
 
 		JButton botaoDetalhar = new JButton("DETALHAR");
 		panelListarSupervisor.add(botaoDetalhar);
+		
+		JButton botaoAlterar = new JButton("ALTERAR");
+		panelListarSupervisor.add(botaoAlterar);
+		
+		JButton botaoDeletar = new JButton("DELETAR");
+		panelListarSupervisor.add(botaoDeletar);
+		
+		JButton botaoMenu = new JButton("MENU INICIAL");
+		panelListarSupervisor.add(botaoMenu);
 
 		panelListarSupervisor.add(scrollPaneListarSupervisor);
 
@@ -65,8 +74,12 @@ public class TelaListarSupervisor {
 
 		frameListarSupervisores.setVisible(true);
 		
-		ControladorTelaListarSupervisor controladorTelaListarSupervisor = new ControladorTelaListarSupervisor(textoCpf, listaSupervisorAuxiliares);
+		ControladorTelaListarSupervisor controladorTelaListarSupervisor = new ControladorTelaListarSupervisor(textoCpf, listaSupervisorAuxiliares, frameListarSupervisores);
 		botaoDetalhar.addActionListener(controladorTelaListarSupervisor);
+		botaoAlterar.addActionListener(controladorTelaListarSupervisor);
+		botaoDeletar.addActionListener(controladorTelaListarSupervisor);
+		botaoMenu.addActionListener(controladorTelaListarSupervisor);
+
 
 	}
 }

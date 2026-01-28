@@ -7,17 +7,26 @@ import entidade.SupervisorAuxiliar;
 
 public class RepositorioSupervisorImplementacao implements RepositorioSupervisor {
 
-	DaoSupervisor daoSupervisor = new DaoSupervisor();
 	
 	@Override
 	public boolean salvarSupervisor(SupervisorAuxiliar supervisorAuxiliar) {
 		
-		return daoSupervisor.salvarSupervisor(supervisorAuxiliar, null);
+		return DaoSupervisor.salvarSupervisor(supervisorAuxiliar, null);
 	}
 
 	@Override
 	public List<SupervisorAuxiliar> listarSupervisor() {
-		return daoSupervisor.listarSupervisorAuxiliar();
+		return DaoSupervisor.listarSupervisorAuxiliar();
+	}
+
+	@Override
+	public boolean alterarSupervisor(SupervisorAuxiliar supervisorAuxiliar) {
+		return DaoSupervisor.alterarSupervisor(supervisorAuxiliar);
+	}
+
+	@Override
+	public boolean deletarSupervisor(String cpf) {
+		return DaoSupervisor.deletarSupervisor(cpf);
 	}
 
 }

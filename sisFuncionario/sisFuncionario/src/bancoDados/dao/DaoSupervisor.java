@@ -12,7 +12,7 @@ import entidade.SupervisorAuxiliar;
 
 public class DaoSupervisor {
 
-	public boolean salvarSupervisor(SupervisorAuxiliar supervisorAuxiliar, String query) {
+	public static boolean salvarSupervisor(SupervisorAuxiliar supervisorAuxiliar, String query) {
 		boolean salvar = false;
 		String sqlQuery;
 
@@ -72,7 +72,7 @@ public class DaoSupervisor {
 		return salvar;
 	}
 
-	public List<SupervisorAuxiliar> listarSupervisorAuxiliar() {
+	public static List<SupervisorAuxiliar> listarSupervisorAuxiliar() {
 
 		Connection connection = null;
 		PreparedStatement preparaOcomandoSQL = null;
@@ -122,5 +122,79 @@ public class DaoSupervisor {
 		return listaSupervisorAuxiliar;
 
 	}
+	public static boolean alterarSupervisor(SupervisorAuxiliar supervisorAuxiliar) {
 
+		Boolean resultadoBoolean = false;
+		String comandoSqlString = "UPDATE supervisor SET nome = ?,  email = ? WHERE cpf = ?";
+		Connection connectar = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			connectar = FabricaConexao.conectar();
+
+			preparedStatement = connectar.prepareStatement(comandoSqlString);
+			preparedStatement.setString(1, supervisorAuxiliar.getNome());
+			preparedStatement.setString(2, supervisorAuxiliar.getEmail());
+			preparedStatement.setString(3, supervisorAuxiliar.getCpf());
+
+			preparedStatement.execute();
+
+			resultadoBoolean = true;
+
+		} catch (Exception e) {
+
+		} finally {
+			try {
+				if (connectar != null) {
+					connectar.close();
+
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+
+			} catch (Exception e2) {
+				System.out.println("Não foi possivel fechar a conexão!!");
+			}
+
+		}
+
+		return resultadoBoolean;
+	}
+	
+	public static boolean deletarSupervisor(String cpf) {
+		
+		Boolean deletar = false;
+		Connection conectar = null;
+		PreparedStatement preparedStatement = null;
+		String comandoSqlString = "delete from supervisor where cpf = ? ";
+		
+		try {
+			conectar = FabricaConexao.conectar();
+			preparedStatement = conectar.prepareStatement(comandoSqlString);
+			preparedStatement.setString(1, cpf);
+			preparedStatement.execute();
+
+			deletar = true;
+			
+		} catch (Exception e) {
+			
+		}finally {
+			try {
+				if (conectar != null) {
+					conectar.close();
+
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+
+			} catch (Exception e2) {
+				System.out.println("Não foi possivel fechar a conexão!!");
+			}
+
+		}
+		
+		return deletar;
+	}
 }
