@@ -10,6 +10,8 @@ public class RepositorioSupervisorImplementacao implements RepositorioSupervisor
 	
 	@Override
 	public boolean salvarSupervisor(SupervisorAuxiliar supervisorAuxiliar) {
+		supervisorAuxiliar.setNome(metodoUpercase(supervisorAuxiliar.getNome()));
+		supervisorAuxiliar.setEmail(metodoUpercase(supervisorAuxiliar.getEmail()));
 		
 		return DaoSupervisor.salvarSupervisor(supervisorAuxiliar, "INSERT");
 	}
@@ -21,12 +23,18 @@ public class RepositorioSupervisorImplementacao implements RepositorioSupervisor
 
 	@Override
 	public boolean alterarSupervisor(SupervisorAuxiliar supervisorAuxiliar) {
+		supervisorAuxiliar.setNome(metodoUpercase(supervisorAuxiliar.getNome()));
+		supervisorAuxiliar.setEmail(metodoUpercase(supervisorAuxiliar.getEmail()));
 		return DaoSupervisor.alterarSupervisor(supervisorAuxiliar);
 	}
 
 	@Override
 	public boolean deletarSupervisor(String cpf) {
 		return DaoSupervisor.deletarSupervisor(cpf);
+	}
+	public String metodoUpercase(String texto) {
+
+		return texto.toUpperCase();
 	}
 
 }

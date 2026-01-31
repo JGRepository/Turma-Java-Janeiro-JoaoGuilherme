@@ -35,8 +35,8 @@
 	
 	<table border="1" cellpadding="5">
 			<tr>
-				<th>CPF</th>
 				<th>NOME</th>
+				<th>CPF</th>
 				<th>EMAIL</th>
 				<th>ACAO</th>
 			</tr>
@@ -48,8 +48,8 @@
 					for (AssistenteAdministrativo atendentes : lista) {
 			%>
 				<tr>
-					<td><%= atendentes.getCpf() %></td>
 					<td><%= atendentes.getNome() %></td>
+					<td><%= atendentes.getCpf() %></td>
 					<td><%= atendentes.getEmail() %></td>
 					<td>
 					<form method="get" action="<%= request.getContextPath() %>/AssistenteController"

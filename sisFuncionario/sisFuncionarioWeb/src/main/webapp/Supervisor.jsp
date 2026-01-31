@@ -39,8 +39,8 @@
 	
 	<table border="1" cellpadding="5">
 			<tr>
-				<th>CPF</th>
 				<th>NOME</th>
+				<th>CPF</th>
 				<th>EMAIL</th>
 				<th>ACAO</th>
 			</tr>
@@ -52,8 +52,8 @@
 					for (SupervisorAuxiliar supervisores : lista) {
 			%>
 				<tr>
-					<td><%= supervisores.getCpf() %></td>
 					<td><%= supervisores.getNome() %></td>
+					<td><%= supervisores.getCpf() %></td>
 					<td><%= supervisores.getEmail() %></td>
 					<td>
 					<form method="get" action="<%= request.getContextPath() %>/SupervisorController"

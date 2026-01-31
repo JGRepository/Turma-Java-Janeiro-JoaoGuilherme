@@ -55,6 +55,8 @@ RepositorioAssistenteImplementacao repositorioAssistenteImplementacao = new Repo
 		
 		RepositorioAssistenteImplementacao repositorioAssistenteImplementacao = new RepositorioAssistenteImplementacao();
 		repositorioAssistenteImplementacao.salvarAssistente(assistenteAdministrativo);
+		response.sendRedirect(request.getContextPath()+"/AssistenteController");
+
 	}
 
 }
