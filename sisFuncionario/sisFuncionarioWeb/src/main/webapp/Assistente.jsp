@@ -2,18 +2,27 @@
     pageEncoding="UTF-8"%>
     
 <%@ page import="java.util.List" %>
-<%@ page import="model.AssistenteAdministrativo" %> 
+<%@ page import="model.FuncionarioInterno" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<%
+String usuario = (String)session.getAttribute("usuarioLogado");  
+
+
+if(usuario == null){
+	response.sendRedirect("Login.jsp");
+	return;
+}
+%>
 <title>ASSISTENTE</title>
 </head>
 <body>
 
 	<h2>ASSISTENTE</h2>
 	
-	<form method="post" action="<%= request.getContextPath() %>/AssistenteController">
+	<form method="post" action="<%=request.getContextPath()%>/AssistenteController">
 		<label>DIGITE O NOME:</label><br>
         <input type="text" name="nome" required><br>
         
@@ -42,10 +51,10 @@
 			</tr>
 
 			<%
-				List<AssistenteAdministrativo> lista = (List<AssistenteAdministrativo>) request.getAttribute("listaAtendentes");
-	
-				if (lista != null) {
-					for (AssistenteAdministrativo atendentes : lista) {
+			List<FuncionarioInterno> lista = (List<FuncionarioInterno>) request.getAttribute("listaAtendentes");
+				
+					if (lista != null) {
+						for (FuncionarioInterno atendentes : lista) {
 			%>
 				<tr>
 					<td><%= atendentes.getNome() %></td>

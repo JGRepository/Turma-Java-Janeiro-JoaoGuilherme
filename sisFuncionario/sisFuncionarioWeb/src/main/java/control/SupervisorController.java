@@ -16,47 +16,59 @@ import repository.RepositorioSupervisorImplementacao;
 @WebServlet("/SupervisorController")
 public class SupervisorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SupervisorController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        RepositorioSupervisorImplementacao repositorioSupervisorImplementacao = new RepositorioSupervisorImplementacao();
-        String acao = request.getParameter("acao");
-		String cpf = request.getParameter("cpf");
-		
-		//SE FOR DELETAR
-		if("deletar".equals(acao) && cpf != null && !cpf.isEmpty()) {
-			repositorioSupervisorImplementacao.deletarSupervisor(cpf);
-			
-		}
-        
-        
-        request.setAttribute("listaSupervisor", repositorioSupervisorImplementacao.listarSupervisor());
-        request.getRequestDispatcher("/Supervisor.jsp").forward(request, response);
-    }
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+	public SupervisorController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		RepositorioSupervisorImplementacao repositorioSupervisorImplementacao = new RepositorioSupervisorImplementacao();
+		String acao = request.getParameter("acao");
+		String cpf = request.getParameter("cpf");
+
+		// SE FOR DELETAR
+		if ("deletar".equals(acao) && cpf != null && !cpf.isEmpty()) {
+			repositorioSupervisorImplementacao.deletarSupervisor(cpf);
+
+		}
+
+
+		request.setAttribute("listaSupervisor", repositorioSupervisorImplementacao.listarSupervisor());
+		request.getRequestDispatcher("/Supervisor.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		SupervisorAuxiliar supervisorAuxiliar = new SupervisorAuxiliar();
 		supervisorAuxiliar.setCpf(request.getParameter("cpf"));
 		supervisorAuxiliar.setNome(request.getParameter("nome"));
 		supervisorAuxiliar.setEmail(request.getParameter("email"));
 		RepositorioSupervisorImplementacao repositorioSupervisorImplementacao = new RepositorioSupervisorImplementacao();
-		repositorioSupervisorImplementacao.salvarSupervisor(supervisorAuxiliar);
-		response.sendRedirect(request.getContextPath()+"/SupervisorController");
+		String acao = request.getParameter("acao");
+		String cpf = request.getParameter("cpf");
+		
+		if ("enviar".equals(acao) && cpf != null && !cpf.isEmpty()) {
+			repositorioSupervisorImplementacao.salvarSupervisor(supervisorAuxiliar);
+			
+		}if ("alterar".equals(acao) && cpf != null && !cpf.isEmpty() ) {
+			repositorioSupervisorImplementacao.alterarSupervisor(supervisorAuxiliar);
+		}else {
+			
+		}
+		
+		
+		response.sendRedirect(request.getContextPath() + "/SupervisorController");
 	}
 
 }
