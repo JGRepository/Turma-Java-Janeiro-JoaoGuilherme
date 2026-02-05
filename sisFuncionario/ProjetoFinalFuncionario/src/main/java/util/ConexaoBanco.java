@@ -8,7 +8,7 @@ public class ConexaoBanco {
 
 	private static String USUARIO = "root";
 	private static String SENHA = "root";
-	private static String BANCO_URL = "jdbc:mysql://localhost:3306/funcionario_db";
+	private static String BANCO_URL = "jdbc:mysql://localhost:3306/funcionarios_db";
 
 	public static Connection conectar() {
 
@@ -17,7 +17,7 @@ public class ConexaoBanco {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
-			conexao = DriverManager.getConnection(BANCO_URL, USUARIO,SENHA);
+			conexao = DriverManager.getConnection(BANCO_URL, USUARIO, SENHA);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Erro Na linha do Class.ForName");
