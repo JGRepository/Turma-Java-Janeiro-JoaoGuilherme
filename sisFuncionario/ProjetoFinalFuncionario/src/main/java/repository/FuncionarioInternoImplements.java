@@ -9,31 +9,38 @@ public class FuncionarioInternoImplements implements FuncionarioInternoRepositor
 
 	@Override
 	public boolean salvarFuncionarioInterno(FuncionarioInterno funcionarioInterno) {
+
+		funcionarioInterno.setNome(upperCase(funcionarioInterno.getNome()));
+
 		return DaoFuncInterno.salvarFuncionarioInternoNoBanco(funcionarioInterno);
 	}
 
 	@Override
 	public List<FuncionarioInterno> listarFuncionarioInterno() {
-		// TODO Auto-generated method stub
-		return null;
+		return DaoFuncInterno.listarFuncInternoNoBanco();
 	}
 
 	@Override
 	public boolean editarFuncionarioInterno(FuncionarioInterno funcionarioInterno) {
-		// TODO Auto-generated method stub
-		return false;
+		funcionarioInterno.setNome(upperCase(funcionarioInterno.getNome()));
+
+		return DaoFuncInterno.editarFuncionarioInterno(funcionarioInterno);
 	}
 
 	@Override
 	public boolean deletarFuncionarioInterno(String cpf) {
 		// TODO Auto-generated method stub
-		return false;
+		return DaoFuncInterno.deletarFuncionarioInterno(cpf);
 	}
 
 	@Override
 	public FuncionarioInterno buscarPorFuncionarioInterno(String cpf) {
 		// TODO Auto-generated method stub
-		return null;
+		return DaoFuncInterno.buscarPorCpf(cpf);
+	}
+
+	public String upperCase(String texto) {
+		return texto.toUpperCase();
 	}
 
 }

@@ -39,7 +39,7 @@ public class TesteBancada {
 		if (buscado != null) {
 			buscado.setNome("JG Atualizado");
 			buscado.setSalario(new BigDecimal("6500.00"));
-			boolean okUpdate = DaoFuncInterno.atualizarFuncionarioInterno(buscado);
+			boolean okUpdate = DaoFuncInterno.editarFuncionarioInterno(buscado);
 			System.out.println("UPDATE interno: " + okUpdate);
 		}
 
