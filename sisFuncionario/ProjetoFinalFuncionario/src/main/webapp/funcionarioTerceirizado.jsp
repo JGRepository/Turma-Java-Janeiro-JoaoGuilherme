@@ -2,17 +2,17 @@
     pageEncoding="UTF-8"%>
 
 <%@ page import="java.util.List" %>
-<%@ page import="model.FuncionarioInterno" %>
+<%@ page import="model.FuncionarioTerceirizado" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>GERENCIAMENTO FUNCIONÁRIO INTERNO</title>
+<title>FUNCIONÁRIO TERCEIRIZADO</title>
 </head>
 <body>
 
-    <h2>GERENCIAMENTO FUNCIONÁRIO INTERNO</h2>
+    <h2>FUNCIONÁRIO TERCEIRIZADO</h2>
 
     <%
         Object usuario = session.getAttribute("usuarioLogado");
@@ -23,32 +23,37 @@
     %>
 
     <%
-        FuncionarioInterno funcionarioEdit = (FuncionarioInterno) request.getAttribute("funcionarioEdit");
+        FuncionarioTerceirizado funcionarioEdit =
+            (FuncionarioTerceirizado) request.getAttribute("funcionarioTerceirizadoEdit");
+
         boolean editando = (funcionarioEdit != null);
         String acaoForm = editando ? "editar" : "salvar";
 
         String cpfValue = editando ? funcionarioEdit.getCpf() : "";
-        String matriculaValue = editando ? funcionarioEdit.getMatricula() : "";
         String nomeValue = editando ? funcionarioEdit.getNome() : "";
 
-        // LocalDate -> "yyyy-MM-dd" para preencher input type="date"
         String dataNascimentoValue = "";
         if (editando && funcionarioEdit.getDataNascimento() != null) {
-            dataNascimentoValue = funcionarioEdit.getDataNascimento().toString();
+            dataNascimentoValue = funcionarioEdit.getDataNascimento().toString(); // yyyy-MM-dd
         }
 
-        String cargoValue = editando && funcionarioEdit.getCargo() != null ? funcionarioEdit.getCargo().name() : "";
-        String salarioValue = editando && funcionarioEdit.getSalario() != null ? funcionarioEdit.getSalario().toString() : "";
+        String funcaoValue = (editando && funcionarioEdit.getFuncao() != null)
+            ? funcionarioEdit.getFuncao().name()
+            : "";
+
+        String empresaValue = editando ? funcionarioEdit.getEmpresa() : "";
+
+        String horasValue = "";
+        if (editando) {
+            horasValue = String.valueOf(funcionarioEdit.getHorasTrabalhadas());
+        }
     %>
 
-    <form method="post" action="<%= request.getContextPath() %>/FuncionarioInternoController">
+    <form method="post" action="<%= request.getContextPath() %>/FuncionarioTerceirizadoController">
         <input type="hidden" name="acao" value="<%= acaoForm %>">
 
         <label>DIGITE O CPF:</label><br>
         <input type="text" name="cpf" <%= editando ? "readonly" : "" %> value="<%= cpfValue %>" required><br>
-
-        <label>DIGITE A MATRÍCULA:</label><br>
-        <input type="text" name="matricula" value="<%= matriculaValue %>" required><br>
 
         <label>DIGITE O NOME:</label><br>
         <input type="text" name="nome" value="<%= nomeValue %>" required><br>
@@ -56,53 +61,61 @@
         <label>DATA DE NASCIMENTO:</label><br>
         <input type="date" name="dataNascimento" value="<%= dataNascimentoValue %>" required><br>
 
-        <label>CARGO:</label><br>
-        <select name="cargo" required>
+        <label>FUNÇÃO:</label><br>
+        <select name="funcao" required>
             <option value="">Selecione</option>
-            <option value="GERENTE" <%= "GERENTE".equals(cargoValue) ? "selected" : "" %>>GERENTE</option>
-            <option value="COORDENADOR" <%= "COORDENADOR".equals(cargoValue) ? "selected" : "" %>>COORDENADOR</option>
-            <option value="ASSISTENTE" <%= "ASSISTENTE".equals(cargoValue) ? "selected" : "" %>>ASSISTENTE</option>
+            <option value="AUX_SERVICOS_GERAIS" <%= "AUX_SERVICOS_GERAIS".equals(funcaoValue) ? "selected" : "" %>>
+                AUX_SERVICOS_GERAIS
+            </option>
+            <option value="ENCARREGADO" <%= "ENCARREGADO".equals(funcaoValue) ? "selected" : "" %>>
+                ENCARREGADO
+            </option>
+            <option value="AJUDANTE" <%= "AJUDANTE".equals(funcaoValue) ? "selected" : "" %>>
+                AJUDANTE
+            </option>
         </select>
         <br>
 
-        <label>SALÁRIO:</label><br>
-        <input type="text" name="salario" value="<%= salarioValue %>" required placeholder="Ex: 5000.00"><br>
+        <label>EMPRESA:</label><br>
+        <input type="text" name="empresa" value="<%= empresaValue %>" required><br>
 
+        <label>HORAS TRABALHADAS:</label><br>
+        <input type="number" name="horasTrabalhadas" value="<%= horasValue %>" required min="0"><br>
 
         <br><br>
         <button type="submit"><%= editando ? "Alterar" : "Salvar" %></button>
     </form>
 
-    <h3>LISTA DE FUNCIONÁRIOS INTERNOS</h3>
+    <h3>LISTA DE FUNCIONÁRIOS TERCEIRIZADOS</h3>
 
     <table border="1" cellpadding="5">
         <tr>
             <th>CPF</th>
-            <th>MATRÍCULA</th>
             <th>NOME</th>
             <th>DATA NASCIMENTO</th>
-            <th>CARGO</th>
-            <th>SALÁRIO</th>
-            <th>PRL</th>
+            <th>FUNÇÃO</th>
+            <th>EMPRESA</th>
+            <th>HORAS</th>
             <th>AÇÕES</th>
         </tr>
 
         <%
-            List<FuncionarioInterno> lista = (List<FuncionarioInterno>) request.getAttribute("listaFuncionariosInternos");
+            List<FuncionarioTerceirizado> lista =
+                (List<FuncionarioTerceirizado>) request.getAttribute("listaFuncionariosTerceirizados");
 
             if (lista != null) {
-                for (FuncionarioInterno f : lista) {
+                for (FuncionarioTerceirizado f : lista) {
         %>
         <tr>
             <td><%= f.getCpf() %></td>
-            <td><%= f.getMatricula() %></td>
             <td><%= f.getNome() %></td>
             <td><%= f.getDataNascimento() %></td>
-            <td><%= f.getCargo() %></td>
-            <td><%= f.getSalario() %></td>
-            <td><%= f.getPlr() %></td>
+            <td><%= f.getFuncao() %></td>
+            <td><%= f.getEmpresa() %></td>
+            <td><%= f.getHorasTrabalhadas() %></td>
             <td>
-                <form method="get" action="<%= request.getContextPath() %>/FuncionarioInternoController" style="display:inline;">
+                <form method="get" action="<%= request.getContextPath() %>/FuncionarioTerceirizadoController"
+                      style="display:inline;">
                     <input type="hidden" name="acao" value="deletar">
                     <input type="hidden" name="cpf" value="<%= f.getCpf() %>">
                     <button type="submit" onclick="return confirm('Tem certeza que deseja deletar?');">
@@ -110,7 +123,8 @@
                     </button>
                 </form>
 
-                <form method="get" action="<%= request.getContextPath() %>/FuncionarioInternoController" style="display:inline;">
+                <form method="get" action="<%= request.getContextPath() %>/FuncionarioTerceirizadoController"
+                      style="display:inline;">
                     <input type="hidden" name="acao" value="editar">
                     <input type="hidden" name="cpf" value="<%= f.getCpf() %>">
                     <button type="submit">Editar</button>
@@ -122,8 +136,6 @@
             }
         %>
     </table>
-    <br><br>
-    <a href="<%= request.getContextPath() %>/home.jsp">VOLTAR</a>
 
 </body>
 </html>

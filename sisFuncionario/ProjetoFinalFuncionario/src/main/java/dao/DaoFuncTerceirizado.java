@@ -15,7 +15,8 @@ public class DaoFuncTerceirizado {
 	public static boolean salvarFuncionarioTerceirizadoNoBanco(FuncionarioTerceirizado funcionario) {
 
 		String sql = "INSERT INTO funcionario_terceirizado "
-				+ "(cpf, nome, data_nascimento, funcao, empresa, horas_trabalhadas) " + "VALUES (?, ?, ?, ?, ?, ?)";
+				+ "(cpf, nome, data_nascimento, funcao, empresa, horas_trabalhadas, senha) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		try (Connection conn = ConexaoBanco.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -25,6 +26,7 @@ public class DaoFuncTerceirizado {
 			ps.setString(4, funcionario.getFuncao().name());
 			ps.setString(5, funcionario.getEmpresa());
 			ps.setInt(6, funcionario.getHorasTrabalhadas());
+			ps.setString(7, funcionario.getSenha());
 
 			ps.executeUpdate();
 			return true;
@@ -48,16 +50,16 @@ public class DaoFuncTerceirizado {
 				ResultSet rs = ps.executeQuery()) {
 
 			while (rs.next()) {
-				FuncionarioTerceirizado f = new FuncionarioTerceirizado();
+				FuncionarioTerceirizado funcTerceiro = new FuncionarioTerceirizado();
 
-				f.setCpf(rs.getString("cpf"));
-				f.setNome(rs.getString("nome"));
-				f.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
-				f.setFuncao(CargoTerceirizado.valueOf(rs.getString("funcao")));
-				f.setEmpresa(rs.getString("empresa"));
-				f.setHorasTrabalhadas(rs.getInt("horas_trabalhadas"));
+				funcTerceiro.setCpf(rs.getString("cpf"));
+				funcTerceiro.setNome(rs.getString("nome"));
+				funcTerceiro.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				funcTerceiro.setFuncao(CargoTerceirizado.valueOf(rs.getString("funcao")));
+				funcTerceiro.setEmpresa(rs.getString("empresa"));
+				funcTerceiro.setHorasTrabalhadas(rs.getInt("horas_trabalhadas"));
 
-				lista.add(f);
+				lista.add(funcTerceiro);
 			}
 
 		} catch (Exception e) {

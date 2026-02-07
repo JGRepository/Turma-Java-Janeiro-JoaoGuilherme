@@ -36,8 +36,7 @@
 </head>
 <body>
 
-<h2>Bem-vindo, <%= nome %> - <%= cpf %></h2>
-<p>Tipo de acesso: <strong><%= tipoUsuario %></strong></p>
+<h2>Bem-vindo ao Sistema</h2>
 
 <h3>MENU</h3>
 

@@ -11,6 +11,15 @@ public class FuncionarioTerceirizado extends Pessoa {
 	private CargoTerceirizado funcao;
 	private String empresa;
 	private int horasTrabalhadas;
+	private BigDecimal lucro;
+
+	public BigDecimal getLucro() {
+		return lucro;
+	}
+
+	public void setLucro(BigDecimal lucro) {
+		this.lucro = lucro;
+	}
 
 	public FuncionarioTerceirizado() {
 	}
@@ -43,8 +52,8 @@ public class FuncionarioTerceirizado extends Pessoa {
 		return horasTrabalhadas;
 	}
 
-	public void setHorasTrabalhadas(int horasTrabalhadas) {
-		this.horasTrabalhadas = horasTrabalhadas;
+	public void setHorasTrabalhadas(int setHorasTrabalhadas) {
+		this.horasTrabalhadas = setHorasTrabalhadas;
 	}
 
 	public BigDecimal getCustoTotal() {

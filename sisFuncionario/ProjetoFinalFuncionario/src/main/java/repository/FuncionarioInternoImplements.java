@@ -1,5 +1,6 @@
 package repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import dao.DaoFuncInterno;
@@ -41,6 +42,12 @@ public class FuncionarioInternoImplements implements FuncionarioInternoRepositor
 
 	public String upperCase(String texto) {
 		return texto.toUpperCase();
+	}
+
+	public void aplicarPlr(FuncionarioInterno funcionarioInterno) {
+		if (funcionarioInterno.getSalario() == null)
+			return;
+		funcionarioInterno.setPlr(funcionarioInterno.getSalario().multiply(new BigDecimal("0.80")));
 	}
 
 }

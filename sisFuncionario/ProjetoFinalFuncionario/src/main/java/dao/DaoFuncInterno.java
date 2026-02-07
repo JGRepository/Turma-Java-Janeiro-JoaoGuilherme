@@ -14,8 +14,8 @@ public class DaoFuncInterno {
 
 	public static boolean salvarFuncionarioInternoNoBanco(FuncionarioInterno funcionarioInterno) {
 
-		String sql = "INSERT INTO funcionario_interno (cpf, matricula, nome, data_nascimento, cargo, salario, senha) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO funcionario_interno (cpf, matricula, nome, data_nascimento, cargo, salario, senha, plr) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try (Connection conn = ConexaoBanco.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -26,6 +26,7 @@ public class DaoFuncInterno {
 			ps.setString(5, funcionarioInterno.getCargo().name());
 			ps.setBigDecimal(6, funcionarioInterno.getSalario());
 			ps.setString(7, funcionarioInterno.getSenha());
+			ps.setBigDecimal(8, funcionarioInterno.getPlr());
 
 			ps.executeUpdate();
 			return true;
@@ -39,7 +40,7 @@ public class DaoFuncInterno {
 
 	public static List<FuncionarioInterno> listarFuncInternoNoBanco() {
 
-		String sql = "SELECT cpf, matricula, nome, data_nascimento, cargo, salario FROM funcionario_interno";
+		String sql = "SELECT cpf, matricula, nome, data_nascimento, cargo, salario, plr FROM funcionario_interno";
 		List<FuncionarioInterno> lista = new ArrayList<>();
 
 		try (Connection conn = ConexaoBanco.conectar();
@@ -57,8 +58,9 @@ public class DaoFuncInterno {
 
 				funcInterno.setCargo(CargoInterno.valueOf(rs.getString("cargo")));
 
-				// DECIMAL -> BigDecimal
 				funcInterno.setSalario(rs.getBigDecimal("salario"));
+
+				funcInterno.setPlr(rs.getBigDecimal("plr"));
 
 				lista.add(funcInterno);
 			}
@@ -74,7 +76,8 @@ public class DaoFuncInterno {
 	public static boolean editarFuncionarioInterno(FuncionarioInterno funcionarioInterno) {
 
 		String sql = "UPDATE funcionario_interno "
-				+ "SET matricula = ?, nome = ?, data_nascimento = ?, cargo = ?, salario = ? " + "WHERE cpf = ?";
+				+ "SET matricula = ?, nome = ?, data_nascimento = ?, cargo = ?, salario = ?, plr = ? "
+				+ "WHERE cpf = ?";
 
 		try (Connection conn = ConexaoBanco.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -83,7 +86,8 @@ public class DaoFuncInterno {
 			ps.setDate(3, java.sql.Date.valueOf(funcionarioInterno.getDataNascimento()));
 			ps.setString(4, funcionarioInterno.getCargo().name());
 			ps.setBigDecimal(5, funcionarioInterno.getSalario());
-			ps.setString(6, funcionarioInterno.getCpf());
+			ps.setBigDecimal(6, funcionarioInterno.getPlr());
+			ps.setString(7, funcionarioInterno.getCpf());
 
 			return ps.executeUpdate() > 0;
 
@@ -112,7 +116,7 @@ public class DaoFuncInterno {
 
 	public static FuncionarioInterno buscarPorCpf(String cpf) {
 
-		String sql = "SELECT cpf, matricula, nome, data_nascimento, cargo, salario "
+		String sql = "SELECT cpf, matricula, nome, data_nascimento, cargo, salario, plr "
 				+ "FROM funcionario_interno WHERE cpf = ?";
 
 		try (Connection conn = ConexaoBanco.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -131,6 +135,7 @@ public class DaoFuncInterno {
 				funcInterno.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
 				funcInterno.setCargo(CargoInterno.valueOf(rs.getString("cargo")));
 				funcInterno.setSalario(rs.getBigDecimal("salario"));
+				funcInterno.setPlr(rs.getBigDecimal("plr"));
 				return funcInterno;
 			}
 

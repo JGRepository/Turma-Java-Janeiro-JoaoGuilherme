@@ -54,8 +54,8 @@ public class FuncionarioInternoController extends HttpServlet {
 		Random random = new Random();
 
 		FuncionarioInternoImplements funcionarioInternoImplements = new FuncionarioInternoImplements();
-
 		FuncionarioInterno funcionario = new FuncionarioInterno();
+
 		funcionario.setCpf(request.getParameter("cpf"));
 		funcionario.setMatricula(request.getParameter("matricula"));
 		funcionario.setNome(request.getParameter("nome"));
@@ -74,6 +74,8 @@ public class FuncionarioInternoController extends HttpServlet {
 		if (salarioStr != null && !salarioStr.isBlank()) {
 			funcionario.setSalario(new BigDecimal(salarioStr));
 		}
+
+		funcionarioInternoImplements.aplicarPlr(funcionario);
 
 		if (!"editar".equalsIgnoreCase(acao)) {
 			funcionario.setSenha((Integer.toString(random.nextInt(100, 999999))));

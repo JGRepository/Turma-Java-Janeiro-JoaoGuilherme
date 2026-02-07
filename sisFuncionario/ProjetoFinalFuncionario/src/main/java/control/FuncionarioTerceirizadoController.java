@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +18,10 @@ import repository.FuncionarioTerceirizadoImplements;
 public class FuncionarioTerceirizadoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	public FuncionarioTerceirizadoController() {
+		super();
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -31,37 +36,55 @@ public class FuncionarioTerceirizadoController extends HttpServlet {
 			funcionarioTerceirizadoImplements.deletarFuncionarioTerceirizado(cpf);
 		}
 
+		if ("editar".equalsIgnoreCase(acao) && cpf != null && !cpf.isEmpty()) {
+			FuncionarioTerceirizado funcionarioEdit = funcionarioTerceirizadoImplements
+					.buscarPorFuncionarioTerceirizado(cpf);
+			request.setAttribute("funcionarioTerceirizadoEdit", funcionarioEdit);
+		}
+
 		request.setAttribute("listaFuncionariosTerceirizados",
 				funcionarioTerceirizadoImplements.listarFuncionarioTerceirizado());
-		request.getRequestDispatcher("/FuncionarioTerceirizadoCrud.jsp").forward(request, response);
+		request.getRequestDispatcher("/funcionarioTerceirizado.jsp").forward(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		FuncionarioTerceirizado funcionarioTerceirizado = new FuncionarioTerceirizado();
-		funcionarioTerceirizado.setCpf(request.getParameter("cpf"));
-		funcionarioTerceirizado.setNome(request.getParameter("nome"));
+		String acao = request.getParameter("acao");
+		Random random = new Random();
+
+		FuncionarioTerceirizadoImplements funcionarioTerceirizadoImplements = new FuncionarioTerceirizadoImplements();
+
+		FuncionarioTerceirizado funcionario = new FuncionarioTerceirizado();
+		funcionario.setCpf(request.getParameter("cpf"));
+		funcionario.setEmpresa(request.getParameter("empresa"));
+		funcionario.setNome(request.getParameter("nome"));
 
 		String dataStr = request.getParameter("dataNascimento");
 		if (dataStr != null && !dataStr.isBlank()) {
-			funcionarioTerceirizado.setDataNascimento(LocalDate.parse(dataStr));
+			funcionario.setDataNascimento(LocalDate.parse(dataStr));
 		}
 
-		String funcaoStr = request.getParameter("funcao");
-		if (funcaoStr != null && !funcaoStr.isBlank()) {
-			funcionarioTerceirizado.setFuncao(CargoTerceirizado.valueOf(funcaoStr));
+		String cargoStr = request.getParameter("funcao");
+		if (cargoStr != null && !cargoStr.isBlank()) {
+			funcionario.setFuncao(CargoTerceirizado.valueOf(cargoStr));
 		}
-		funcionarioTerceirizado.setEmpresa(request.getParameter("empresa"));
 
 		String horasStr = request.getParameter("horasTrabalhadas");
 		if (horasStr != null && !horasStr.isBlank()) {
-			funcionarioTerceirizado.setHorasTrabalhadas(Integer.parseInt(horasStr));
+			funcionario.setHorasTrabalhadas(Integer.parseInt(horasStr));
 		}
 
-		FuncionarioTerceirizadoImplements funcionarioTerceirizadoImplements = new FuncionarioTerceirizadoImplements();
-		funcionarioTerceirizadoImplements.salvarFuncionarioTerceirizado(funcionarioTerceirizado);
+		if (!"editar".equalsIgnoreCase(acao)) {
+			funcionario.setSenha((Integer.toString(random.nextInt(100, 999999))));
+		}
+
+		if ("editar".equalsIgnoreCase(acao)) {
+			funcionarioTerceirizadoImplements.editarFuncionarioTerceirizado(funcionario);
+		} else {
+			funcionarioTerceirizadoImplements.salvarFuncionarioTerceirizado(funcionario);
+		}
 
 		response.sendRedirect(request.getContextPath() + "/FuncionarioTerceirizadoController");
 	}

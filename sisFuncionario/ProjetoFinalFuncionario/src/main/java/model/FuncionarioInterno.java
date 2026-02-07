@@ -1,7 +1,6 @@
 package model;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 
 import model.enums.CargoInterno;
@@ -11,6 +10,11 @@ public class FuncionarioInterno extends Pessoa {
 	private String matricula;
 	private CargoInterno cargo;
 	private BigDecimal salario;
+	private BigDecimal plr;
+
+	public void setPlr(BigDecimal plr) {
+		this.plr = plr;
+	}
 
 	public FuncionarioInterno() {
 		// default constructor
@@ -49,10 +53,7 @@ public class FuncionarioInterno extends Pessoa {
 	}
 
 	public BigDecimal getPlr() {
-		if (salario == null) {
-			return BigDecimal.ZERO;
-		}
-		return salario.multiply(new BigDecimal("0.80")).setScale(2, RoundingMode.HALF_UP);
+		return plr;
 	}
 
 }
