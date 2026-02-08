@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Random;
 
@@ -61,21 +62,31 @@ public class FuncionarioTerceirizadoController extends HttpServlet {
 		funcionario.setEmpresa(request.getParameter("empresa"));
 		funcionario.setNome(request.getParameter("nome"));
 
-		String dataStr = request.getParameter("dataNascimento");
-		if (dataStr != null && !dataStr.isBlank()) {
-			funcionario.setDataNascimento(LocalDate.parse(dataStr));
+		String data = request.getParameter("dataNascimento");
+		if (data != null && !data.isBlank()) {
+			funcionario.setDataNascimento(LocalDate.parse(data));
 		}
 
-		String cargoStr = request.getParameter("funcao");
-		if (cargoStr != null && !cargoStr.isBlank()) {
-			funcionario.setFuncao(CargoTerceirizado.valueOf(cargoStr));
+		String cargo = request.getParameter("funcao");
+		if (cargo != null && !cargo.isBlank()) {
+			funcionario.setFuncao(CargoTerceirizado.valueOf(cargo));
 		}
 
-		String horasStr = request.getParameter("horasTrabalhadas");
-		if (horasStr != null && !horasStr.isBlank()) {
-			funcionario.setHorasTrabalhadas(Integer.parseInt(horasStr));
+		String horasTrabalhadas = request.getParameter("horasTrabalhadas");
+		if (horasTrabalhadas != null && !horasTrabalhadas.isBlank()) {
+			funcionario.setHorasTrabalhadas(Integer.parseInt(horasTrabalhadas));
 		}
 
+		String lucro = request.getParameter("lucro");
+		if (lucro != null && !lucro.isBlank()) {
+			funcionario.setLucro(new BigDecimal(lucro));
+		}
+
+		funcionarioTerceirizadoImplements.aplicarCustos(funcionario);
+
+		if (funcionario.getCusto() == null) {
+			funcionario.setCusto(BigDecimal.ZERO);
+		}
 		if (!"editar".equalsIgnoreCase(acao)) {
 			funcionario.setSenha((Integer.toString(random.nextInt(100, 999999))));
 		}

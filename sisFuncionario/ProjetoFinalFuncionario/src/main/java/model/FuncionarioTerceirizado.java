@@ -2,7 +2,6 @@ package model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
 
 import model.enums.CargoTerceirizado;
 
@@ -12,6 +11,15 @@ public class FuncionarioTerceirizado extends Pessoa {
 	private String empresa;
 	private int horasTrabalhadas;
 	private BigDecimal lucro;
+	private BigDecimal custo;
+
+	public BigDecimal getCusto() {
+		return custo;
+	}
+
+	public void setCusto(BigDecimal custo) {
+		this.custo = custo;
+	}
 
 	public BigDecimal getLucro() {
 		return lucro;
@@ -19,17 +27,6 @@ public class FuncionarioTerceirizado extends Pessoa {
 
 	public void setLucro(BigDecimal lucro) {
 		this.lucro = lucro;
-	}
-
-	public FuncionarioTerceirizado() {
-	}
-
-	public FuncionarioTerceirizado(String cpf, String nome, LocalDate dataNascimento, CargoTerceirizado funcao,
-			String empresa, int horasTrabalhadas) {
-		super();
-		this.funcao = funcao;
-		this.empresa = empresa;
-		this.horasTrabalhadas = horasTrabalhadas;
 	}
 
 	public CargoTerceirizado getFuncao() {

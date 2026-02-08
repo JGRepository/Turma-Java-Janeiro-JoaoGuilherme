@@ -15,8 +15,8 @@ public class DaoFuncTerceirizado {
 	public static boolean salvarFuncionarioTerceirizadoNoBanco(FuncionarioTerceirizado funcionario) {
 
 		String sql = "INSERT INTO funcionario_terceirizado "
-				+ "(cpf, nome, data_nascimento, funcao, empresa, horas_trabalhadas, senha) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+				+ "(cpf, nome, data_nascimento, funcao, empresa, horas_trabalhadas, senha, lucro, custo) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try (Connection conn = ConexaoBanco.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -27,6 +27,8 @@ public class DaoFuncTerceirizado {
 			ps.setString(5, funcionario.getEmpresa());
 			ps.setInt(6, funcionario.getHorasTrabalhadas());
 			ps.setString(7, funcionario.getSenha());
+			ps.setBigDecimal(8, funcionario.getLucro());
+			ps.setBigDecimal(9, funcionario.getCusto());
 
 			ps.executeUpdate();
 			return true;
@@ -40,7 +42,7 @@ public class DaoFuncTerceirizado {
 
 	public static List<FuncionarioTerceirizado> listarFuncTerceirizadoNoBanco() {
 
-		String sql = "SELECT cpf, nome, data_nascimento, funcao, empresa, horas_trabalhadas "
+		String sql = "SELECT cpf, nome, data_nascimento, funcao, empresa, horas_trabalhadas, lucro, custo "
 				+ "FROM funcionario_terceirizado";
 
 		List<FuncionarioTerceirizado> lista = new ArrayList<>();
@@ -58,6 +60,8 @@ public class DaoFuncTerceirizado {
 				funcTerceiro.setFuncao(CargoTerceirizado.valueOf(rs.getString("funcao")));
 				funcTerceiro.setEmpresa(rs.getString("empresa"));
 				funcTerceiro.setHorasTrabalhadas(rs.getInt("horas_trabalhadas"));
+				funcTerceiro.setLucro(rs.getBigDecimal("lucro"));
+				funcTerceiro.setCusto(rs.getBigDecimal("custo"));
 
 				lista.add(funcTerceiro);
 			}
@@ -73,7 +77,7 @@ public class DaoFuncTerceirizado {
 	public static boolean editarFuncionarioTerceirizado(FuncionarioTerceirizado funcionario) {
 
 		String sql = "UPDATE funcionario_terceirizado "
-				+ "SET nome = ?, data_nascimento = ?, funcao = ?, empresa = ?, horas_trabalhadas = ? "
+				+ "SET nome = ?, data_nascimento = ?, funcao = ?, empresa = ?, horas_trabalhadas = ?, lucro = ? , custo = ? "
 				+ "WHERE cpf = ?";
 
 		try (Connection conn = ConexaoBanco.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -83,7 +87,9 @@ public class DaoFuncTerceirizado {
 			ps.setString(3, funcionario.getFuncao().name());
 			ps.setString(4, funcionario.getEmpresa());
 			ps.setInt(5, funcionario.getHorasTrabalhadas());
-			ps.setString(6, funcionario.getCpf());
+			ps.setBigDecimal(6, funcionario.getLucro());
+			ps.setBigDecimal(7, funcionario.getCusto());
+			ps.setString(8, funcionario.getCpf());
 
 			return ps.executeUpdate() > 0;
 
@@ -112,7 +118,7 @@ public class DaoFuncTerceirizado {
 
 	public static FuncionarioTerceirizado buscarPorCpf(String cpf) {
 
-		String sql = "SELECT cpf, nome, data_nascimento, funcao, empresa, horas_trabalhadas "
+		String sql = "SELECT cpf, nome, data_nascimento, funcao, empresa, horas_trabalhadas, lucro, custo "
 				+ "FROM funcionario_terceirizado WHERE cpf = ?";
 
 		try (Connection conn = ConexaoBanco.conectar(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -124,15 +130,17 @@ public class DaoFuncTerceirizado {
 					return null;
 				}
 
-				FuncionarioTerceirizado f = new FuncionarioTerceirizado();
-				f.setCpf(rs.getString("cpf"));
-				f.setNome(rs.getString("nome"));
-				f.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
-				f.setFuncao(CargoTerceirizado.valueOf(rs.getString("funcao")));
-				f.setEmpresa(rs.getString("empresa"));
-				f.setHorasTrabalhadas(rs.getInt("horas_trabalhadas"));
+				FuncionarioTerceirizado funcionarioTerceirizado = new FuncionarioTerceirizado();
+				funcionarioTerceirizado.setCpf(rs.getString("cpf"));
+				funcionarioTerceirizado.setNome(rs.getString("nome"));
+				funcionarioTerceirizado.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				funcionarioTerceirizado.setFuncao(CargoTerceirizado.valueOf(rs.getString("funcao")));
+				funcionarioTerceirizado.setEmpresa(rs.getString("empresa"));
+				funcionarioTerceirizado.setHorasTrabalhadas(rs.getInt("horas_trabalhadas"));
+				funcionarioTerceirizado.setLucro(rs.getBigDecimal("lucro"));
+				funcionarioTerceirizado.setCusto(rs.getBigDecimal("custo"));
 
-				return f;
+				return funcionarioTerceirizado;
 			}
 
 		} catch (Exception e) {

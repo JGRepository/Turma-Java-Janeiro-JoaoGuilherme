@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public enum CargoTerceirizado {
 
-	AUX_SERVICOS_GERAIS(new BigDecimal("50")), ENCARREGADO(new BigDecimal("40")), AJUDANTE(new BigDecimal("30"));
+	AUX_SERVICOS_GERAIS(new BigDecimal("50")), ENCARREGADO(new BigDecimal("40")), AJUDANTE(new BigDecimal("150"));
 
 	private final BigDecimal valorHora;
 

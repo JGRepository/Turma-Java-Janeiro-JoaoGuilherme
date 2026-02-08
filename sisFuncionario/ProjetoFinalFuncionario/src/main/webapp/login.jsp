@@ -27,5 +27,12 @@
 
     <button type="submit">Entrar</button>
   </form>
+  
+  <br><br>
+  <footer>Master User (apenas para fins de teste)
+  <br><br>
+  <label>user - admin</label><br>
+  <label>senha - admin</label>
+  </footer>
 </body>
 </html>
