@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.FuncionarioInterno;
 import model.enums.CargoInterno;
 import repository.FuncionarioInternoImplements;
+import util.ValidaCpf;
 
 @WebServlet("/FuncionarioInternoController")
 public class FuncionarioInternoController extends HttpServlet {
@@ -51,12 +52,20 @@ public class FuncionarioInternoController extends HttpServlet {
 			throws ServletException, IOException {
 
 		String acao = request.getParameter("acao");
-		Random random = new Random();
-
+		String cpf = request.getParameter("cpf");
 		FuncionarioInternoImplements funcionarioInternoImplements = new FuncionarioInternoImplements();
+
+		if (!ValidaCpf.isCpfValido(cpf)) {
+			request.setAttribute("erro", "CPF inválido.");
+			request.setAttribute("listaFuncionariosInternos", funcionarioInternoImplements.listarFuncionarioInterno());
+			request.getRequestDispatcher("/funcionarioInterno.jsp").forward(request, response);
+			return;
+		}
+
+		Random random = new Random();
 		FuncionarioInterno funcionario = new FuncionarioInterno();
 
-		funcionario.setCpf(request.getParameter("cpf"));
+		funcionario.setCpf(cpf);
 		funcionario.setMatricula(request.getParameter("matricula"));
 		funcionario.setNome(request.getParameter("nome"));
 
@@ -77,16 +86,14 @@ public class FuncionarioInternoController extends HttpServlet {
 
 		funcionarioInternoImplements.aplicarPlr(funcionario);
 
-		if (!"editar".equalsIgnoreCase(acao)) {
-			funcionario.setSenha((Integer.toString(random.nextInt(100, 999999))));
-		}
-
 		if ("editar".equalsIgnoreCase(acao)) {
 			funcionarioInternoImplements.editarFuncionarioInterno(funcionario);
 		} else {
+			funcionario.setSenha(Integer.toString(random.nextInt(100, 999999)));
 			funcionarioInternoImplements.salvarFuncionarioInterno(funcionario);
 		}
 
 		response.sendRedirect(request.getContextPath() + "/FuncionarioInternoController");
 	}
+
 }

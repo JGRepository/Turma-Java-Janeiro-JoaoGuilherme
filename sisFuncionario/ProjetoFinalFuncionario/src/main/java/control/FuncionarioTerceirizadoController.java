@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.FuncionarioTerceirizado;
 import model.enums.CargoTerceirizado;
 import repository.FuncionarioTerceirizadoImplements;
+import util.ValidaCpf;
 
 @WebServlet("/FuncionarioTerceirizadoController")
 public class FuncionarioTerceirizadoController extends HttpServlet {
@@ -52,10 +53,19 @@ public class FuncionarioTerceirizadoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		FuncionarioTerceirizadoImplements funcionarioTerceirizadoImplements = new FuncionarioTerceirizadoImplements();
 		String acao = request.getParameter("acao");
+		String cpf = request.getParameter("cpf");
+
 		Random random = new Random();
 
-		FuncionarioTerceirizadoImplements funcionarioTerceirizadoImplements = new FuncionarioTerceirizadoImplements();
+		if (!ValidaCpf.isCpfValido(cpf)) {
+			request.setAttribute("erro", "CPF inválido.");
+			request.setAttribute("listaFuncionariosTerceirizados",
+					funcionarioTerceirizadoImplements.listarFuncionarioTerceirizado());
+			request.getRequestDispatcher("/funcionarioTerceirizado.jsp").forward(request, response);
+			return;
+		}
 
 		FuncionarioTerceirizado funcionario = new FuncionarioTerceirizado();
 		funcionario.setCpf(request.getParameter("cpf"));

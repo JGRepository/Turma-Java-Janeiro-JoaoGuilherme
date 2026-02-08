@@ -14,6 +14,12 @@
 
 <h2>FUNCIONÁRIO TERCEIRIZADO</h2>
 
+<% if (request.getAttribute("erro") != null) { %>
+    <p style="color:red;">
+        <%= request.getAttribute("erro") %>
+    </p>
+<% } %>
+
 <%
     Object usuario = session.getAttribute("usuarioLogado");
     if (usuario == null) {

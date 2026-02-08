@@ -13,6 +13,12 @@
 <body>
 
     <h2>GERENCIAMENTO FUNCIONÁRIO INTERNO</h2>
+    
+    <% if (request.getAttribute("erro") != null) { %>
+    <p style="color:red;">
+        <%= request.getAttribute("erro") %>
+    </p>
+<% } %>
 
     <%
         Object usuario = session.getAttribute("usuarioLogado");
